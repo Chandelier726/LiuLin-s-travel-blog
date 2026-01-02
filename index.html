@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>漫游世界 - 个人旅行博客</title>
+    <!-- 引入字体图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入Google字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- 引入CSS文件 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 页面加载动画 -->
+    <div class="loader">
+        <div class="plane">
+            <i class="fas fa-plane"></i>
+        </div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- 网站Logo -->
+                <div class="logo">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>漫游世界</span>
+                </div>
+                
+                <!-- 导航菜单 -->
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="#home" class="active"><i class="fas fa-home"></i>首页</a></li>
+                        <li><a href="#destinations"><i class="fas fa-map-marked-alt"></i>目的地</a></li>
+                        <li><a href="#gallery"><i class="fas fa-images"></i>相册</a></li>
+                        <li><a href="#about"><i class="fas fa-user"></i>关于我</a></li>
+                        <li><a href="#contact"><i class="fas fa-envelope"></i>联系</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- 移动端菜单按钮 -->
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main>
+        <!-- 英雄横幅区 -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1 class="hero-title">探索世界的<span class="highlight">无限可能</span></h1>
+                <p class="hero-subtitle">记录每一次旅程，分享每一段故事。从山川湖海到城市街角，发现生活中的美好。</p>
+                <div class="hero-buttons">
+                    <a href="#destinations" class="btn btn-primary">开始探索</a>
+                    <a href="#gallery" class="btn btn-secondary">浏览相册</a>
+                </div>
+            </div>
+            
+            <!-- 背景装饰元素 -->
+            <div class="hero-decoration">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3"></div>
+            </div>
+        </section>
+
+        <!-- 目的地卡片区 -->
+        <section class="destinations" id="destinations">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">热门目的地</h2>
+                    <p class="section-subtitle">探索我最喜欢的旅行地点</p>
+                    <div class="section-line"></div>
+                </div>
+                
+                <!-- 目的地卡片容器 -->
+                <div class="cards-container">
+                    <!-- 卡片1：日本 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="日本京都" class="card-image">
+                            <div class="card-overlay">
+                                <span class="card-category">文化之旅</span>
+                                <div class="card-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">日本京都</h3>
+                            <p class="card-text">探索千年古都的寺庙与庭院，体验传统日本文化。</p>
+                            <div class="card-features">
+                                <span><i class="fas fa-calendar-alt"></i> 最佳季节: 春季</span>
+                                <span><i class="fas fa-walking"></i> 难度: 简单</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="card-btn" data-destination="kyoto">了解更多</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 卡片2：冰岛 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="https://images.unsplash.com/photo-1502741338009-5b3f2ae63d2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="冰岛极光" class="card-image">
+                            <div class="card-overlay">
+                                <span class="card-category">自然奇观</span>
+                                <div class="card-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">冰岛极光</h3>
+                            <p class="card-text">追逐北极光，探索冰川与火山交织的奇幻世界。</p>
+                            <div class="card-features">
+                                <span><i class="fas fa-calendar-alt"></i> 最佳季节: 冬季</span>
+                                <span><i class="fas fa-walking"></i> 难度: 中等</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="card-btn" data-destination="iceland">了解更多</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 卡片3：意大利 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="意大利托斯卡纳" class="card-image">
+                            <div class="card-overlay">
+                                <span class="card-category">田园风光</span>
+                                <div class="card-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">意大利托斯卡纳</h3>
+                            <p class="card-text">沉浸在葡萄园与向日葵的田园诗画中，品味地道美食。</p>
+                            <div class="card-features">
+                                <span><i class="fas fa-calendar-alt"></i> 最佳季节: 夏季</span>
+                                <span><i class="fas fa-walking"></i> 难度: 简单</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="card-btn" data-destination="italy">了解更多</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 目的地筛选器 -->
+                <div class="filter-container">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="culture">文化</button>
+                    <button class="filter-btn" data-filter="nature">自然</button>
+                    <button class="filter-btn" data-filter="adventure">冒险</button>
+                    <button class="filter-btn" data-filter="food">美食</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 统计信息区 -->
+        <section class="stats">
+            <div class="container">
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <i class="fas fa-globe-americas"></i>
+                        <div class="stat-number" data-target="25">0</div>
+                        <div class="stat-text">已访问国家</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-camera"></i>
+                        <div class="stat-number" data-target="1200">0</div>
+                        <div class="stat-text">旅行照片</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-plane"></i>
+                        <div class="stat-number" data-target="150">0</div>
+                        <div class="stat-text">航班次数</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-route"></i>
+                        <div class="stat-number" data-target="48">0</div>
+                        <div class="stat-text">旅行路线</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于我 -->
+        <section class="about" id="about">
+            <div class="container">
+                <div class="about-container">
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="旅行者">
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="about-content">
+                        <h2 class="section-title">关于旅行者</h2>
+                        <div class="section-line"></div>
+                        <p>你好！我是一名热爱旅行、摄影和写作的自由职业者。通过这个博客，我希望分享我的旅行故事，记录世界的美好。</p>
+                        <p>我相信旅行不仅仅是到达目的地，更是关于沿途的发现、与人的相遇以及自我成长的过程。</p>
+                        
+                        <div class="skills">
+                            <h3>旅行技能</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">摄影</div>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">语言能力</div>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">行程规划</div>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="contactBtn">联系我</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 相册区 -->
+        <section class="gallery" id="gallery">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">旅行相册</h2>
+                    <p class="section-subtitle">用镜头记录世界的美好瞬间</p>
+                    <div class="section-line"></div>
+                </div>
+                
+                <div class="gallery-container">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="日本寺庙">
+                        <div class="gallery-overlay">
+                            <h3>京都金阁寺</h3>
+                            <p>日本 · 京都</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="摩洛哥市场">
+                        <div class="gallery-overlay">
+                            <h3>马拉喀什市场</h3>
+                            <p>摩洛哥 · 马拉喀什</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="北欧风光">
+                        <div class="gallery-overlay">
+                            <h3>挪威峡湾</h3>
+                            <p>挪威 · 卑尔根</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="希腊建筑">
+                        <div class="gallery-overlay">
+                            <h3>圣托里尼日落</h3>
+                            <p>希腊 · 圣托里尼</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-controls">
+                    <button class="btn btn-secondary" id="loadMoreBtn">加载更多</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系表单 -->
+        <section class="contact" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">联系我</h2>
+                    <p class="section-subtitle">有旅行问题或合作想法？随时联系！</p>
+                    <div class="section-line"></div>
+                </div>
+                
+                <div class="contact-container">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="你的姓名" required>
+                            <label for="name">姓名</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="你的邮箱" required>
+                            <label for="email">邮箱</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" placeholder="你的留言" rows="5" required></textarea>
+                            <label for="message">留言</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">发送消息</button>
+                    </form>
+                    
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>邮箱</h3>
+                                <p>traveler@example.com</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h3>电话</h3>
+                                <p>+123 456 7890</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>地址</h3>
+                                <p>中国 · 上海</p>
+                            </div>
+                        </div>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-weibo"></i></a>
+                            <a href="#"><i class="fab fa-weixin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>漫游世界</span>
+                </div>
+                <p class="footer-text">记录每一次旅程，分享每一段故事。</p>
+                
+                <div class="footer-links">
+                    <a href="#home">首页</a>
+                    <a href="#destinations">目的地</a>
+                    <a href="#gallery">相册</a>
+                    <a href="#about">关于我</a>
+                    <a href="#contact">联系</a>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>&copy; 2023 漫游世界. 保留所有权利.</p>
+                    <p>本网站仅用于学习目的</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 模态框（点击卡片时显示） -->
+    <div class="modal" id="destinationModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-body" id="modalBody">
+                <!-- 动态内容将通过JavaScript填充 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- 引入JavaScript文件 -->
+    <script src="script.js"></script>
+</body>
+</html>
