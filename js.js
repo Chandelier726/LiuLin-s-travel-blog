@@ -1,479 +1,550 @@
-// 等待DOM完全加载
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('旅行博客网页已加载');
-    
-    // 1. 页面加载动画
-    const loader = document.querySelector('.loader');
-    setTimeout(() => {
-        loader.classList.add('fade-out');
-    }, 1500);
-    
-    // 2. 移动端菜单切换
-    const menuToggle = document.getElementById('menuToggle');
-    const nav = document.querySelector('.nav');
-    
-    menuToggle.addEventListener('click', function() {
-        nav.classList.toggle('active');
-        const icon = this.querySelector('i');
-        if (icon.classList.contains('fa-bars')) {
-            icon.classList.replace('fa-bars', 'fa-times');
-        } else {
-            icon.classList.replace('fa-times', 'fa-bars');
-        }
-    });
-    
-    // 点击导航链接时关闭移动菜单
-    const navLinks = document.querySelectorAll('.nav-list a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                nav.classList.remove('active');
-                menuToggle.querySelector('i').classList.replace('fa-times', 'fa-bars');
-            }
-            
-            // 更新活动链接状态
-            navLinks.forEach(item => item.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-    
-    // 3. 滚动时添加头部阴影和返回顶部按钮
-    const header = document.querySelector('.header');
-    const backToTop = document.getElementById('backToTop');
-    
-    window.addEventListener('scroll', function() {
-        // 头部阴影
-        if (window.scrollY > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-        
-        // 返回顶部按钮
-        if (window.scrollY > 500) {
-            backToTop.classList.add('active');
-        } else {
-            backToTop.classList.remove('active');
-        }
-        
-        // 更新导航链接活动状态
-        updateActiveNavLink();
-    });
-    
-    // 返回顶部功能
-    backToTop.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-    
-    // 4. 目的地卡片点击事件
-    const cardButtons = document.querySelectorAll('.card-btn');
-    const modal = document.getElementById('destinationModal');
-    const modalClose = document.getElementById('modalClose');
-    const modalBody = document.getElementById('modalBody');
-    
-    // 目的地数据
-    const destinations = {
-        kyoto: {
-            title: "日本京都",
-            category: "文化之旅",
-            rating: 4.5,
-            description: "京都是日本文化的精髓所在，拥有超过1000座寺庙和数百个庭院。这座城市完美地融合了传统与现代，从清水寺的壮丽景色到哲学之道的宁静漫步，每一处都令人难忘。",
-            highlights: ["金阁寺", "清水寺", "伏见稻荷大社", "岚山竹林"],
-            tips: ["春季赏樱最佳", "尝试传统和服体验", "品尝怀石料理"],
-            image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-        },
-        iceland: {
-            title: "冰岛极光",
-            category: "自然奇观",
-            rating: 4.0,
-            description: "冰岛是一个充满自然奇迹的国家，从壮观的瀑布和冰川到活跃的火山和地热温泉。冬季是追逐北极光的最佳时节，而夏季则可以体验午夜阳光的奇妙。",
-            highlights: ["黄金圈", "蓝湖温泉", "杰古沙龙冰河湖", "黑沙滩"],
-            tips: ["9月至4月适合看极光", "租用四驱车自驾", "准备防风防水衣物"],
-            image: "https://images.unsplash.com/photo-1502741338009-5b3f2ae63d2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-        },
-        italy: {
-            title: "意大利托斯卡纳",
-            category: "田园风光",
-            rating: 5.0,
-            description: "托斯卡纳是意大利最迷人的地区之一，以其连绵起伏的丘陵、葡萄园、橄榄园和文艺复兴时期的艺术遗产而闻名。这里的田园风光仿佛一幅幅生动的油画。",
-            highlights: ["佛罗伦萨", "锡耶纳", "圣吉米尼亚诺", "基安蒂葡萄酒产区"],
-            tips: ["5-6月和9-10月最佳", "品尝当地葡萄酒和松露", "参观文艺复兴艺术"],
-            image: "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-        }
-    };
-    
-    // 卡片点击事件
-    cardButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const destinationId = this.getAttribute('data-destination');
-            const destination = destinations[destinationId];
-            
-            if (destination) {
-                // 构建模态框内容
-                let modalHTML = `
-                    <div class="destination-modal">
-                        <div class="destination-header">
-                            <img src="${destination.image}" alt="${destination.title}" class="destination-image">
-                            <div class="destination-overlay">
-                                <h2>${destination.title}</h2>
-                                <div class="destination-meta">
-                                    <span class="destination-category">${destination.category}</span>
-                                    <div class="destination-rating">
-                                        ${getRatingStars(destination.rating)}
-                                        <span>${destination.rating}/5.0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="destination-content">
-                            <h3>目的地介绍</h3>
-                            <p>${destination.description}</p>
-                            
-                            <div class="destination-details">
-                                <div class="detail-column">
-                                    <h4><i class="fas fa-star"></i> 亮点推荐</h4>
-                                    <ul>
-                                        ${destination.highlights.map(item => `<li>${item}</li>`).join('')}
-                                    </ul>
-                                </div>
-                                <div class="detail-column">
-                                    <h4><i class="fas fa-lightbulb"></i> 旅行贴士</h4>
-                                    <ul>
-                                        ${destination.tips.map(item => `<li>${item}</li>`).join('')}
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <button class="btn btn-primary" id="planTripBtn">计划我的旅程</button>
-                        </div>
-                    </div>
-                `;
-                
-                modalBody.innerHTML = modalHTML;
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                
-                // 计划旅程按钮事件
-                document.getElementById('planTripBtn')?.addEventListener('click', function() {
-                    alert(`开始计划您的${destination.title}之旅！`);
-                });
-            }
-        });
-    });
-    
-    // 关闭模态框
-    modalClose.addEventListener('click', function() {
-        closeModal();
-    });
-    
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-    
-    function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = 'auto';
+/* 基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* 导航栏 */
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    color: #3498db;
+    margin-right: 8px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: #3498db;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #3498db;
+    transition: width 0.3s;
+}
+
+.nav-links a:hover::after, .nav-links a.active::after {
+    width: 100%;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #2c3e50;
+    cursor: pointer;
+}
+
+/* 英雄区域 */
+.hero {
+    padding: 150px 0 80px;
+    background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+    color: white;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    opacity: 0.9;
+}
+
+/* 城市卡片区域 */
+.cities {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #2c3e50;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #3498db;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.city-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.city-card {
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.city-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.city-card.shanghai .city-header {
+    background-color: #3498db;
+}
+
+.city-card.nanjing .city-header {
+    background-color: #e67e22;
+}
+
+.city-card.xian .city-header {
+    background-color: #9b59b6;
+}
+
+.city-header {
+    padding: 25px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.city-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.city-icon {
+    font-size: 2.5rem;
+    opacity: 0.9;
+}
+
+.city-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.city-content {
+    padding: 25px;
+}
+
+.city-desc {
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.city-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.feature-tag {
+    background-color: #f1f8ff;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #3498db;
+}
+
+.shanghai .feature-tag {
+    background-color: #e8f4fc;
+    color: #2980b9;
+}
+
+.nanjing .feature-tag {
+    background-color: #fef5e7;
+    color: #d35400;
+}
+
+.xian .feature-tag {
+    background-color: #f4ecf7;
+    color: #8e44ad;
+}
+
+.city-btn {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: #f8f9fa;
+    border: 2px solid #3498db;
+    color: #3498db;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-align: center;
+    width: 100%;
+}
+
+.shanghai .city-btn {
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.shanghai .city-btn:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+.nanjing .city-btn {
+    border-color: #e67e22;
+    color: #e67e22;
+}
+
+.nanjing .city-btn:hover {
+    background-color: #e67e22;
+    color: white;
+}
+
+.xian .city-btn {
+    border-color: #9b59b6;
+    color: #9b59b6;
+}
+
+.xian .city-btn:hover {
+    background-color: #9b59b6;
+    color: white;
+}
+
+/* 城市详情模态框 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.modal {
+    background-color: white;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: modalFade 0.3s;
+}
+
+@keyframes modalFade {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: #7f8c8d;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.modal-header {
+    padding: 30px 30px 20px;
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.modal.shanghai .modal-header {
+    background-color: #3498db;
+}
+
+.modal.nanjing .modal-header {
+    background-color: #e67e22;
+}
+
+.modal.xian .modal-header {
+    background-color: #9b59b6;
+}
+
+.modal-title {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.modal-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.modal-section {
+    margin-bottom: 30px;
+}
+
+.modal-section h3 {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f1f1f1;
+}
+
+.modal-section p {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.attraction-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.attraction-list li {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.attraction-list i {
+    margin-right: 10px;
+    color: #3498db;
+}
+
+.shanghai .attraction-list i {
+    color: #3498db;
+}
+
+.nanjing .attraction-list i {
+    color: #e67e22;
+}
+
+.xian .attraction-list i {
+    color: #9b59b6;
+}
+
+/* 旅行贴士 */
+.tips {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.tips-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.tip-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.tip-card:hover {
+    transform: translateY(-5px);
+}
+
+.tip-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #3498db;
+}
+
+.tip-card h3 {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.tip-card p {
+    color: #666;
+}
+
+/* 页脚 */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 50px 0 20px;
+    text-align: center;
+}
+
+.footer-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-logo i {
+    color: #3498db;
+    margin-right: 8px;
+}
+
+.footer-desc {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    color: #bdc3c7;
+    line-height: 1.7;
+}
+
+.footer-bottom {
+    padding-top: 20px;
+    border-top: 1px solid #34495e;
+    color: #95a5a6;
+    font-size: 0.9rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 2.5rem;
     }
     
-    // 生成评分星星
-    function getRatingStars(rating) {
-        let stars = '';
-        const fullStars = Math.floor(rating);
-        const hasHalfStar = rating % 1 >= 0.5;
-        
-        for (let i = 0; i < fullStars; i++) {
-            stars += '<i class="fas fa-star"></i>';
-        }
-        
-        if (hasHalfStar) {
-            stars += '<i class="fas fa-star-half-alt"></i>';
-        }
-        
-        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-        for (let i = 0; i < emptyStars; i++) {
-            stars += '<i class="far fa-star"></i>';
-        }
-        
-        return stars;
+    .city-cards {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        flex-direction: column;
+        padding: 20px 0;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     }
     
-    // 5. 目的地筛选器
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.card');
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // 更新活动按钮
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            const filter = this.getAttribute('data-filter');
-            
-            // 筛选卡片
-            cards.forEach(card => {
-                const category = card.querySelector('.card-category').textContent;
-                const categoryMap = {
-                    '文化之旅': 'culture',
-                    '自然奇观': 'nature',
-                    '田园风光': 'adventure',
-                    '城市探索': 'food'
-                };
-                
-                if (filter === 'all' || categoryMap[category] === filter) {
-                    card.style.display = 'block';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 100);
-                } else {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 300);
-                }
-            });
-        });
-    });
-    
-    // 6. 统计数字动画
-    const statNumbers = document.querySelectorAll('.stat-number');
-    
-    function animateCounter(element, target) {
-        const duration = 2000; // 动画持续时间（毫秒）
-        const step = target / (duration / 16); // 每16ms增加的值（约60fps）
-        let current = 0;
-        
-        const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                element.textContent = target;
-                clearInterval(timer);
-            } else {
-                element.textContent = Math.floor(current);
-            }
-        }, 16);
+    .nav-links.active {
+        display: flex;
     }
     
-    // 当统计区域进入视口时触发动画
-    const observerOptions = {
-        threshold: 0.5
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                statNumbers.forEach(stat => {
-                    const target = parseInt(stat.getAttribute('data-target'));
-                    animateCounter(stat, target);
-                });
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    const statsSection = document.querySelector('.stats');
-    if (statsSection) {
-        observer.observe(statsSection);
+    .nav-links li {
+        margin: 10px 0;
+        text-align: center;
     }
     
-    // 7. 技能条动画
-    const skillLevels = document.querySelectorAll('.skill-level');
-    
-    const skillsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                skillLevels.forEach(level => {
-                    const width = level.style.width;
-                    level.style.width = '0';
-                    setTimeout(() => {
-                        level.style.width = width;
-                    }, 300);
-                });
-                skillsObserver.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    const aboutSection = document.querySelector('.about');
-    if (aboutSection) {
-        skillsObserver.observe(aboutSection);
+    .mobile-menu-btn {
+        display: block;
     }
     
-    // 8. 加载更多图片功能
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
-    const galleryContainer = document.querySelector('.gallery-container');
-    
-    // 更多图片数据
-    const moreImages = [
-        {
-            src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            title: "瑞士阿尔卑斯",
-            location: "瑞士 · 因特拉肯"
-        },
-        {
-            src: "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            title: "泰国清迈",
-            location: "泰国 · 清迈"
-        },
-        {
-            src: "https://images.unsplash.com/photo-1506970845872-504d6b2d49e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            title: "美国大峡谷",
-            location: "美国 · 亚利桑那"
-        },
-        {
-            src: "https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            title: "印度泰姬陵",
-            location: "印度 · 阿格拉"
-        }
-    ];
-    
-    loadMoreBtn.addEventListener('click', function() {
-        // 添加新图片
-        moreImages.forEach(image => {
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
-            galleryItem.innerHTML = `
-                <img src="${image.src}" alt="${image.title}">
-                <div class="gallery-overlay">
-                    <h3>${image.title}</h3>
-                    <p>${image.location}</p>
-                </div>
-            `;
-            galleryContainer.appendChild(galleryItem);
-        });
-        
-        // 禁用按钮并更改文本
-        this.textContent = '已加载全部图片';
-        this.disabled = true;
-        this.classList.remove('btn-secondary');
-        this.classList.add('btn-primary');
-        
-        // 重新绑定新图片的悬停效果
-        initGalleryHover();
-    });
-    
-    // 9. 联系表单提交
-    const contactForm = document.getElementById('contactForm');
-    const contactBtn = document.getElementById('contactBtn');
-    
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-        
-        // 简单的表单验证
-        if (!name || !email || !message) {
-            alert('请填写所有字段！');
-            return;
-        }
-        
-        if (!isValidEmail(email)) {
-            alert('请输入有效的邮箱地址！');
-            return;
-        }
-        
-        // 模拟表单提交
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = '发送中...';
-        submitBtn.disabled = true;
-        
-        setTimeout(() => {
-            alert(`感谢 ${name} 的留言！我们会尽快通过 ${email} 与您联系。`);
-            contactForm.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }, 1500);
-    });
-    
-    // 邮箱验证函数
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+    .hero {
+        padding: 130px 0 60px;
     }
     
-    // 点击关于我的联系按钮时滚动到联系表单
-    contactBtn.addEventListener('click', function() {
-        document.getElementById('contact').scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-    
-    // 10. 更新活动导航链接
-    function updateActiveNavLink() {
-        const sections = document.querySelectorAll('section[id]');
-        const scrollPosition = window.scrollY + 100;
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
+    .hero h1 {
+        font-size: 2.2rem;
     }
     
-    // 11. 初始化画廊悬停效果
-    function initGalleryHover() {
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        galleryItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.classList.add('hover');
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.classList.remove('hover');
-            });
-        });
+    .city-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.8rem;
     }
     
-    // 初始化画廊效果
-    initGalleryHover();
+    .hero p {
+        font-size: 1rem;
+    }
     
-    // 12. 添加一些随机效果
-    // 随机改变卡片颜色
-    const cardCategories = document.querySelectorAll('.card-category');
-    const categoryColors = {
-        '文化之旅': '#3498db',
-        '自然奇观': '#2ecc71',
-        '田园风光': '#9b59b6',
-        '城市探索': '#e74c3c'
-    };
+    .section-title {
+        font-size: 1.8rem;
+    }
     
-    cardCategories.forEach(category => {
-        const text = category.textContent;
-        if (categoryColors[text]) {
-            category.style.backgroundColor = categoryColors[text];
-        }
-    });
-    
-    // 添加一些有趣的鼠标跟随效果
-    const circles = document.querySelectorAll('.circle');
-    document.addEventListener('mousemove', function(e) {
-        const mouseX = e.clientX / window.innerWidth;
-        const mouseY = e.clientY / window.innerHeight;
-        
-        circles.forEach((circle, index) => {
-            const speed = 0.05 + (index * 0.02);
-            const x = (mouseX * 20 - 10) * speed;
-            const y = (mouseY * 20 - 10) * speed;
-            
-            circle.style.transform = `translate(${x}px, ${y}px)`;
-        });
-    });
-});
+    .modal-body {
+        padding: 20px;
+    }
+}
