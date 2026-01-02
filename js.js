@@ -1,6 +1,6 @@
 // 等待页面加载完成
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('三城记旅行博客已加载');
+    console.log('三城漫游旅行博客已加载');
     
     // 移动端菜单切换
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -32,13 +32,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // 英雄区域轮播图
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    
+    function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[index].classList.add('active');
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+    
+    // 自动轮播
+    setInterval(nextSlide, 5000);
+    
     // 导航栏滚动效果
     window.addEventListener('scroll', function() {
         const header = document.querySelector('header');
         if (window.scrollY > 50) {
-            header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            header.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
+            header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
         } else {
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+            header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
         }
         
         // 更新导航链接活动状态
@@ -90,8 +109,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化
     updateActiveNavLink();
     
-    // 城市卡片悬停效果
-    document.querySelectorAll('.highlight-card').forEach(card => {
+    // 快速导航卡片悬停效果
+    document.querySelectorAll('.quick-nav-item').forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // 景点卡片悬停效果
+    document.querySelectorAll('.attraction-card').forEach(card => {
         card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-10px)';
         });
@@ -101,41 +131,67 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // 贴士卡片悬停效果
-    document.querySelectorAll('.tip-item').forEach(item => {
-        item.addEventListener('mouseenter', function() {
+    // 美食卡片悬停效果
+    document.querySelectorAll('.food-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-5px)';
         });
         
-        item.addEventListener('mouseleave', function() {
+        card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
         });
     });
     
-    // 城市标签点击效果
-    document.querySelectorAll('.city-tab').forEach(tab => {
-        tab.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                // 平滑滚动到目标位置
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-                
-                // 更新导航链接活动状态
-                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-                document.querySelector(`.nav-links a[href="${targetId}"]`).classList.add('active');
+    // 贴士卡片悬停效果
+    document.querySelectorAll('.tips-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // 相册图片点击效果
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const overlay = this.querySelector('.gallery-overlay');
+            if (overlay.style.transform === 'translateY(0px)') {
+                overlay.style.transform = 'translateY(100%)';
+            } else {
+                overlay.style.transform = 'translateY(0)';
             }
         });
     });
     
-    // 添加表格行悬停效果
+    // 相册导航按钮
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentGalleryIndex = 0;
+    
+    function showGalleryItem(index) {
+        galleryItems.forEach(item => item.style.display = 'none');
+        galleryItems[index].style.display = 'block';
+    }
+    
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', function() {
+            currentGalleryIndex = (currentGalleryIndex - 1 + galleryItems.length) % galleryItems.length;
+            showGalleryItem(currentGalleryIndex);
+        });
+        
+        nextBtn.addEventListener('click', function() {
+            currentGalleryIndex = (currentGalleryIndex + 1) % galleryItems.length;
+            showGalleryItem(currentGalleryIndex);
+        });
+    }
+    
+    // 表格行悬停效果
     document.querySelectorAll('tbody tr').forEach(row => {
         row.addEventListener('mouseenter', function() {
-            this.style.backgroundColor = '#e8f4fc';
+            this.style.backgroundColor = '#f1f8ff';
         });
         
         row.addEventListener('mouseleave', function() {
@@ -143,6 +199,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.style.backgroundColor = '#f8f9fa';
             } else {
                 this.style.backgroundColor = 'white';
+            }
+        });
+    });
+    
+    // 平滑滚动到锚点
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // 更新导航链接活动状态
+                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
             }
         });
     });
@@ -155,29 +233,25 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.opacity = '1';
     }, 100);
     
-    // 添加点击特效
-    document.querySelectorAll('a, button').forEach(element => {
-        element.addEventListener('click', function(e) {
-            // 防止在移动设备上触发多次点击
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                
-                if (href && href.startsWith('#')) {
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                        
-                        // 更新导航链接
-                        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-                        document.querySelector(`.nav-links a[href="${href}"]`).classList.add('active');
-                    }
-                }
+    // 滚动动画效果
+    const animateOnScroll = function() {
+        const elements = document.querySelectorAll('.city-intro, .attraction-card, .food-card, .tips-card');
+        
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            
+            if (elementTop < window.innerHeight - elementVisible) {
+                element.classList.add('animated');
             }
         });
-    });
+    };
     
-    console.log('交互功能已初始化');
+    // 初始执行一次
+    animateOnScroll();
+    
+    // 滚动时执行
+    window.addEventListener('scroll', animateOnScroll);
+    
+    console.log('所有交互功能已初始化');
 });
