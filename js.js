@@ -1,550 +1,176 @@
-/* 基础样式 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Noto Sans SC', sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
-    line-height: 1.6;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-/* 导航栏 */
-header {
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-}
-
-.logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #2c3e50;
-    display: flex;
-    align-items: center;
-}
-
-.logo i {
-    color: #3498db;
-    margin-right: 8px;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-}
-
-.nav-links li {
-    margin-left: 30px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #555;
-    font-weight: 500;
-    transition: color 0.3s;
-    position: relative;
-}
-
-.nav-links a:hover, .nav-links a.active {
-    color: #3498db;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #3498db;
-    transition: width 0.3s;
-}
-
-.nav-links a:hover::after, .nav-links a.active::after {
-    width: 100%;
-}
-
-.mobile-menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #2c3e50;
-    cursor: pointer;
-}
-
-/* 英雄区域 */
-.hero {
-    padding: 150px 0 80px;
-    background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
-    color: white;
-    text-align: center;
-    margin-top: 60px;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin: 0 auto 30px;
-    opacity: 0.9;
-}
-
-/* 城市卡片区域 */
-.cities {
-    padding: 80px 0;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 2.2rem;
-    color: #2c3e50;
-    margin-bottom: 50px;
-    position: relative;
-}
-
-.section-title::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background-color: #3498db;
-    margin: 10px auto 0;
-    border-radius: 2px;
-}
-
-.city-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-    margin-bottom: 50px;
-}
-
-.city-card {
-    background-color: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-}
-
-.city-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-}
-
-.city-card.shanghai .city-header {
-    background-color: #3498db;
-}
-
-.city-card.nanjing .city-header {
-    background-color: #e67e22;
-}
-
-.city-card.xian .city-header {
-    background-color: #9b59b6;
-}
-
-.city-header {
-    padding: 25px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.city-name {
-    font-size: 1.8rem;
-    font-weight: 700;
-}
-
-.city-icon {
-    font-size: 2.5rem;
-    opacity: 0.9;
-}
-
-.city-image {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-.city-content {
-    padding: 25px;
-}
-
-.city-desc {
-    color: #555;
-    margin-bottom: 20px;
-    line-height: 1.7;
-}
-
-.city-features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-.feature-tag {
-    background-color: #f1f8ff;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    color: #3498db;
-}
-
-.shanghai .feature-tag {
-    background-color: #e8f4fc;
-    color: #2980b9;
-}
-
-.nanjing .feature-tag {
-    background-color: #fef5e7;
-    color: #d35400;
-}
-
-.xian .feature-tag {
-    background-color: #f4ecf7;
-    color: #8e44ad;
-}
-
-.city-btn {
-    display: inline-block;
-    padding: 10px 25px;
-    background-color: #f8f9fa;
-    border: 2px solid #3498db;
-    color: #3498db;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s;
-    text-align: center;
-    width: 100%;
-}
-
-.shanghai .city-btn {
-    border-color: #3498db;
-    color: #3498db;
-}
-
-.shanghai .city-btn:hover {
-    background-color: #3498db;
-    color: white;
-}
-
-.nanjing .city-btn {
-    border-color: #e67e22;
-    color: #e67e22;
-}
-
-.nanjing .city-btn:hover {
-    background-color: #e67e22;
-    color: white;
-}
-
-.xian .city-btn {
-    border-color: #9b59b6;
-    color: #9b59b6;
-}
-
-.xian .city-btn:hover {
-    background-color: #9b59b6;
-    color: white;
-}
-
-/* 城市详情模态框 */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    padding: 20px;
-}
-
-.modal {
-    background-color: white;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 800px;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-    position: relative;
-    animation: modalFade 0.3s;
-}
-
-@keyframes modalFade {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.modal-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    color: #7f8c8d;
-    cursor: pointer;
-    z-index: 10;
-}
-
-.modal-header {
-    padding: 30px 30px 20px;
-    color: white;
-    border-radius: 15px 15px 0 0;
-}
-
-.modal.shanghai .modal-header {
-    background-color: #3498db;
-}
-
-.modal.nanjing .modal-header {
-    background-color: #e67e22;
-}
-
-.modal.xian .modal-header {
-    background-color: #9b59b6;
-}
-
-.modal-title {
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-}
-
-.modal-subtitle {
-    font-size: 1.1rem;
-    opacity: 0.9;
-}
-
-.modal-body {
-    padding: 30px;
-}
-
-.modal-section {
-    margin-bottom: 30px;
-}
-
-.modal-section h3 {
-    font-size: 1.4rem;
-    color: #2c3e50;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #f1f1f1;
-}
-
-.modal-section p {
-    color: #555;
-    line-height: 1.7;
-    margin-bottom: 15px;
-}
-
-.attraction-list {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-}
-
-.attraction-list li {
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.attraction-list i {
-    margin-right: 10px;
-    color: #3498db;
-}
-
-.shanghai .attraction-list i {
-    color: #3498db;
-}
-
-.nanjing .attraction-list i {
-    color: #e67e22;
-}
-
-.xian .attraction-list i {
-    color: #9b59b6;
-}
-
-/* 旅行贴士 */
-.tips {
-    padding: 80px 0;
-    background-color: #f8f9fa;
-}
-
-.tips-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.tip-card {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s;
-}
-
-.tip-card:hover {
-    transform: translateY(-5px);
-}
-
-.tip-icon {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #3498db;
-}
-
-.tip-card h3 {
-    font-size: 1.3rem;
-    color: #2c3e50;
-    margin-bottom: 15px;
-}
-
-.tip-card p {
-    color: #666;
-}
-
-/* 页脚 */
-footer {
-    background-color: #2c3e50;
-    color: white;
-    padding: 50px 0 20px;
-    text-align: center;
-}
-
-.footer-logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.footer-logo i {
-    color: #3498db;
-    margin-right: 8px;
-}
-
-.footer-desc {
-    max-width: 600px;
-    margin: 0 auto 30px;
-    color: #bdc3c7;
-    line-height: 1.7;
-}
-
-.footer-bottom {
-    padding-top: 20px;
-    border-top: 1px solid #34495e;
-    color: #95a5a6;
-    font-size: 0.9rem;
-}
-
-/* 响应式设计 */
-@media (max-width: 992px) {
-    .hero h1 {
-        font-size: 2.5rem;
+// 等待页面加载完成
+document.addEventListener('DOMContentLoaded', function() {
+    // 移动端菜单切换
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        
+        // 切换菜单图标
+        const icon = this.querySelector('i');
+        if (icon.classList.contains('fa-bars')) {
+            icon.classList.replace('fa-bars', 'fa-times');
+        } else {
+            icon.classList.replace('fa-times', 'fa-bars');
+        }
+    });
+    
+    // 点击导航链接时关闭移动菜单
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+            }
+            
+            // 更新活动链接
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    // 城市数据
+    const citiesData = {
+        shanghai: {
+            name: "上海",
+            subtitle: "东方明珠，现代与传统交融",
+            description: "上海，中国最大的经济中心，国际化大都市。既有外滩的百年历史建筑，也有陆家嘴的现代化摩天大楼。这座城市完美融合了东方传统文化与西方现代文明。",
+            attractions: [
+                { name: "外滩", icon: "fa-building" },
+                { name: "东方明珠塔", icon: "fa-tower" },
+                { name: "南京路步行街", icon: "fa-store" },
+                { name: "豫园", icon: "fa-tree" },
+                { name: "法租界", icon: "fa-archway" },
+                { name: "迪士尼乐园", icon: "fa-hat-wizard" }
+            ],
+            tips: "建议安排3-4天游览上海。第一天可游览外滩、南京路步行街；第二天参观豫园、城隍庙；第三天探索法租界区域；第四天可前往迪士尼乐园或朱家角古镇。上海地铁系统发达，是出行的最佳选择。"
+        },
+        nanjing: {
+            name: "南京",
+            subtitle: "六朝古都，历史与现代交织",
+            description: "南京，中国四大古都之一，拥有超过2500年建城史。这里既有中山陵的庄严雄伟，也有夫子庙的热闹繁华；既有明城墙的历史厚重，也有玄武湖的自然宁静。",
+            attractions: [
+                { name: "中山陵", icon: "fa-monument" },
+                { name: "夫子庙", icon: "fa-temple" },
+                { name: "明孝陵", icon: "fa-landmark" },
+                { name: "玄武湖", icon: "fa-water" },
+                { name: "南京博物院", icon: "fa-museum" },
+                { name: "秦淮河", icon: "fa-water" }
+            ],
+            tips: "南京适合安排2-3天游览。第一天参观中山陵、明孝陵；第二天游览夫子庙、秦淮河；第三天可前往南京博物院和玄武湖。春秋两季是南京最美的季节，尤其是秋天的栖霞山红叶。"
+        },
+        xian: {
+            name: "西安",
+            subtitle: "千年古都，丝绸之路起点",
+            description: "西安，世界四大古都之一，中国历史上建都朝代最多、时间最长的城市。这里保存着完整的古城墙，更有震撼世界的秦始皇兵马俑，是中华文明的发祥地之一。",
+            attractions: [
+                { name: "兵马俑", icon: "fa-user-ninja" },
+                { name: "西安城墙", icon: "fa-fort-awesome" },
+                { name: "大雁塔", icon: "fa-tower" },
+                { name: "回民街", icon: "fa-utensils" },
+                { name: "钟鼓楼", icon: "fa-bell" },
+                { name: "大唐不夜城", icon: "fa-city" }
+            ],
+            tips: "建议安排3天游览西安。第一天参观兵马俑博物馆；第二天游览西安城墙、钟鼓楼和回民街；第三天参观大雁塔和大唐不夜城。西安美食丰富，一定要品尝当地的羊肉泡馍、肉夹馍和凉皮。"
+        }
+    };
+    
+    // 城市卡片点击事件
+    document.querySelectorAll('.city-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const cityId = this.getAttribute('data-city');
+            const cityData = citiesData[cityId];
+            
+            // 更新模态框内容
+            document.getElementById('modalCityName').textContent = cityData.name;
+            document.getElementById('modalCitySubtitle').textContent = cityData.subtitle;
+            document.getElementById('cityDescription').textContent = cityData.description;
+            document.getElementById('cityTips').textContent = cityData.tips;
+            
+            // 更新景点列表
+            const attractionsList = document.getElementById('cityAttractions');
+            attractionsList.innerHTML = '';
+            
+            cityData.attractions.forEach(attraction => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas ${attraction.icon}"></i> ${attraction.name}`;
+                attractionsList.appendChild(li);
+            });
+            
+            // 更新模态框样式
+            const modal = document.getElementById('cityModal');
+            modal.className = `modal ${cityId}`;
+            
+            // 显示模态框
+            document.getElementById('modalOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    // 关闭模态框
+    document.getElementById('modalClose').addEventListener('click', function() {
+        document.getElementById('modalOverlay').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+    
+    // 点击模态框外部关闭
+    document.getElementById('modalOverlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+            document.getElementById('modalOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // 卡片按钮点击事件（阻止冒泡，避免触发卡片点击事件）
+    document.querySelectorAll('.city-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const card = this.closest('.city-card');
+            card.click();
+        });
+    });
+    
+    // 导航栏滚动效果
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+            header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+        } else {
+            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        }
+        
+        // 更新导航链接活动状态
+        updateActiveNavLink();
+    });
+    
+    // 更新活动导航链接
+    function updateActiveNavLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        
+        let currentSection = '';
+        const scrollPosition = window.scrollY + 100;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active');
+            }
+        });
     }
     
-    .city-cards {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: white;
-        flex-direction: column;
-        padding: 20px 0;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    }
+    // 初始化
+    updateActiveNavLink();
     
-    .nav-links.active {
-        display: flex;
-    }
-    
-    .nav-links li {
-        margin: 10px 0;
-        text-align: center;
-    }
-    
-    .mobile-menu-btn {
-        display: block;
-    }
-    
-    .hero {
-        padding: 130px 0 60px;
-    }
-    
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-    
-    .city-cards {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero h1 {
-        font-size: 1.8rem;
-    }
-    
-    .hero p {
-        font-size: 1rem;
-    }
-    
-    .section-title {
-        font-size: 1.8rem;
-    }
-    
-    .modal-body {
-        padding: 20px;
-    }
-}
+    console.log('三城记旅行博客已加载完成！');
+});
