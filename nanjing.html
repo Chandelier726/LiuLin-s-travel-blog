@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南京 | 六朝古都 - 三城漫游</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--light-bg);
+        }
+
+        /* 导航栏 */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-color);
+        }
+
+        /* 城市英雄区域 */
+        .city-hero {
+            height: 70vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            margin-top: 70px;
+        }
+
+        .city-hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3)),
+                        url('https://images.unsplash.com/photo-1593693399746-4d92796c1c5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .city-hero-content {
+            color: white;
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .city-hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .city-hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .city-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* 内容区域 */
+        .city-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .section-intro {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 800px;
+        }
+
+        /* 景点网格 */
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .attraction-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .attraction-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .attraction-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .attraction-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .attraction-card:hover .attraction-image img {
+            transform: scale(1.05);
+        }
+
+        .attraction-content {
+            padding: 1.5rem;
+        }
+
+        .attraction-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .attraction-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .attraction-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* 美食部分 */
+        .food-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .food-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            background-color: var(--light-bg);
+            transition: var(--transition);
+        }
+
+        .food-item:hover {
+            background-color: #e8f7ee;
+            transform: translateX(5px);
+        }
+
+        .food-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .food-info h4 {
+            margin-bottom: 0.3rem;
+            color: var(--primary-color);
+        }
+
+        .food-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* 文化部分 */
+        .culture-section {
+            margin: 3rem 0;
+        }
+
+        .culture-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-year {
+            min-width: 100px;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 25px;
+            font-weight: 700;
+            height: fit-content;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            flex: 1;
+        }
+
+        .timeline-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        /* 旅行建议 */
+        .tips-section {
+            background: linear-gradient(135deg, #e8f7ee, #f0f9f4);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tip-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .tip-item i {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* 特色体验 */
+        .experience-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .experience-card {
+            background: var(--light-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .experience-icon {
+            background: var(--accent-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .experience-content {
+            padding: 1.5rem;
+        }
+
+        .experience-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .city-hero-title {
+                font-size: 2.5rem;
+            }
+
+            .city-hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .city-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .attractions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .timeline-year {
+                align-self: flex-start;
+            }
+
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* 底部 */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-button:hover {
+            background: #219653;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-compass"></i>
+                <span>三城漫游</span>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
+                <li><a href="shanghai.html"><i class="fas fa-city"></i> 上海</a></li>
+                <li><a href="nanjing.html" class="active"><i class="fas fa-landmark"></i> 南京</a></li>
+                <li><a href="xian.html"><i class="fas fa-history"></i> 西安</a></li>
+                <li><a href="#tips"><i class="fas fa-lightbulb"></i> 旅行贴士</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 城市英雄区域 -->
+    <section class="city-hero">
+        <div class="city-hero-image"></div>
+        <div class="city-hero-content">
+            <h1 class="city-hero-title">南京 · 六朝古都</h1>
+            <p class="city-hero-subtitle">钟山龙蟠，石头虎踞，十朝都会，人文荟萃</p>
+            <div class="city-stats">
+                <div class="stat-item">
+                    <span class="stat-value">942万</span>
+                    <span class="stat-label">城市人口</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">6587km²</span>
+                    <span class="stat-label">城市面积</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">2470年</span>
+                    <span class="stat-label">建城历史</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">3-4天</span>
+                    <span class="stat-label">建议游玩时间</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 城市介绍 -->
+    <section class="city-content">
+        <h2 class="section-title">关于南京</h2>
+        <p class="section-intro">
+            南京，中国四大古都之一，有"六朝古都"、"十朝都会"之称。这里既有中山陵的庄严宏伟，也有秦淮河的婉约风情；既有明城墙的厚重历史，也有夫子庙的市井繁华。南京是一座将历史与现代完美融合的城市，每一处都散发着独特的文化魅力。
+        </p>
+
+        <!-- 著名景点 -->
+        <h2 class="section-title">著名景点</h2>
+        <div class="attractions-grid">
+            <div class="attraction-card">
+                <div class="attraction-image">
+                    <img src="https://images.unsplash.com/photo-1551328687-6e9d6d8227e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="中山陵">
+                </div>
+                <div class="attraction-content">
+                    <h3 class="attraction-name">中山陵</h3>
+                    <p class="attraction-description">中国近代伟大的民主革命先行者孙中山先生的陵寝，建筑气势宏伟，庄严肃穆。</p>
+                    <div class="attraction-meta">
+                        <span>建议时长: 2-3小时</span>
+                        <span>免费</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-image">
+                    <img src="https://images.unsplash.com/photo-1551739440-5dd94d21a912?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="夫子庙">
+                </div>
+                <div class="attraction-content">
+                    <h3 class="attraction-name">夫子庙秦淮河</h3>
+                    <p class="attraction-description">南京的历史文化名片，集古迹、园林、画舫、市街和民俗于一体。</p>
+                    <div class="attraction-meta">
+                        <span>建议时长: 3-4小时</span>
+                        <span>部分景点收费</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-image">
+                    <img src="https://images.unsplash.com/photo-1587332066582-21dd50b75c1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="明孝陵">
+                </div>
+                <div class="attraction-content">
+                    <h3 class="attraction-name">明孝陵</h3>
+                    <p class="attraction-description">明朝开国皇帝朱元璋和马皇后的合葬陵墓，中国规模最大的帝王陵寝之一。</p>
+                    <div class="attraction-meta">
+                        <span>建议时长: 2-3小时</span>
+                        <span>门票: ¥70</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 特色美食 -->
+        <div class="food-section">
+            <h2 class="section-title">特色美食</h2>
+            <p class="section-intro">南京菜属于金陵菜系，又称"京苏大菜"，以选料严谨、制作精细、口味醇和著称。</p>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div class="food-icon">
+                        <i class="fas fa-drumstick-bite"></i>
+                    </div>
+                    <div class="food-info">
+                        <h4>盐水鸭</h4>
+                        <p>南京最著名的特产，皮白肉嫩，肥而不腻，鲜香可口</p>
+                    </div>
+                </div>
+                <div class="food-item">
+                    <div class="food-icon">
+                        <i class="fas fa-utensil-spoon"></i>
+                    </div>
+                    <div class="food-info">
+                        <h4>鸭血粉丝汤</h4>
+                        <p>南京传统名吃，鸭血嫩滑，粉丝爽口，汤鲜味美</p>
+                    </div>
+                </div>
+                <div class="food-item">
+                    <div class="food-icon">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <div class="food-info">
+                        <h4>牛肉锅贴</h4>
+                        <p>外皮金黄酥脆，内馅鲜嫩多汁，是南京的传统小吃</p>
+                    </div>
+                </div>
+                <div class="food-item">
+                    <div class="food-icon">
+                        <i class="fas fa-cookie-bite"></i>
+                    </div>
+                    <div class="food-info">
+                        <h4>梅花糕</h4>
+                        <p>南京传统甜点，形如梅花，软糯香甜</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 文化历史 -->
+        <div class="culture-section">
+            <h2 class="section-title">文化历史</h2>
+            <p class="section-intro">南京有着近2500年的建城史和近500年的建都史，是中国历史文化名城。</p>
+            <div class="culture-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">公元前472年</div>
+                    <div class="timeline-content">
+                        <h4>越城建立</h4>
+                        <p>越王勾践命范蠡筑越城于秦淮河畔，为南京建城之始</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">229年</div>
+                    <div class="timeline-content">
+                        <h4>东吴定都</h4>
+                        <p>孙权在此建都，名建业，为南京建都之始</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1368年</div>
+                    <div class="timeline-content">
+                        <h4>明朝建立</h4>
+                        <p>朱元璋称帝，建立明朝，定都南京，称应天府</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1927年</div>
+                    <div class="timeline-content">
+                        <h4>民国首都</h4>
+                        <p>国民政府定都南京，开启南京现代化进程</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 特色体验 -->
+        <div class="experience-section">
+            <h2 class="section-title">特色体验</h2>
+            <p class="section-intro">在南京，除了参观名胜古迹，还可以体验这些独特的文化活动。</p>
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <div class="experience-icon">
+                        <i class="fas fa-ship"></i>
+                    </div>
+                    <div class="experience-content">
+                        <h4>夜游秦淮河</h4>
+                        <p>乘坐画舫，欣赏两岸灯火，感受"十里秦淮"的千年风情。</p>
+                    </div>
+                </div>
+                <div class="experience-card">
+                    <div class="experience-icon">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <div class="experience-content">
+                        <h4>紫金山徒步</h4>
+                        <p>登上紫金山，俯瞰南京城全景，感受"钟山龙蟠"的气势。</p>
+                    </div>
+                </div>
+                <div class="experience-card">
+                    <div class="experience-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="experience-content">
+                        <h4>参观南京博物院</h4>
+                        <p>中国三大博物馆之一，馆藏丰富，展现南京千年历史文化。</p>
+                    </div>
+                </div>
+                <div class="experience-card">
+                    <div class="experience-icon">
+                        <i class="fas fa-archway"></i>
+                    </div>
+                    <div class="experience-content">
+                        <h4>漫步明城墙</h4>
+                        <p>走在世界上现存最长的古城墙上，感受历史的厚重。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 旅行建议 -->
+        <div class="tips-section">
+            <h2 class="section-title">旅行建议</h2>
+            <div class="tips-grid">
+                <div class="tip-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h4>最佳时间</h4>
+                    <p>春季(3-5月)赏樱花，秋季(9-11月)赏红叶，气候最宜人</p>
+                </div>
+                <div class="tip-item">
+                    <i class="fas fa-subway"></i>
+                    <h4>交通出行</h4>
+                    <p>地铁线路覆盖主要景点，公交系统发达，建议购买交通卡</p>
+                </div>
+                <div class="tip-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h4>行程规划</h4>
+                    <p>建议按区域游览：钟山风景区、夫子庙秦淮河风光带、明城墙等</p>
+                </div>
+                <div class="tip-item">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h4>购物推荐</h4>
+                    <p>新街口商圈、夫子庙商业区、老门东历史文化街区</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 返回按钮 -->
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                返回首页
+            </a>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer>
+        <div class="footer-content">
+            <div style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">
+                <i class="fas fa-compass"></i>
+                三城漫游
+            </div>
+            <p style="margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                探索中国最具魅力的三座城市：上海、南京、西安
+            </p>
+            <div style="color: #aaa; font-size: 0.9rem;">
+                © 2023 三城漫游旅行博客. 保留所有权利.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // 响应式导航栏
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinks.style.display = 'flex';
+            } else {
+                navLinks.style.display = 'none';
+            }
+        });
+
+        // 初始化
+        if (window.innerWidth <= 768) {
+            navLinks.style.display = 'none';
+        }
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 关闭移动端菜单
+                    if (window.innerWidth <= 768) {
+                        navLinks.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
