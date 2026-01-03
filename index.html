@@ -3,509 +3,842 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>三城漫游 - 图文交互旅行博客</title>
+    <title>三城漫游 | 清爽旅行博客</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --shanghai-color: #e74c3c;
+            --nanjing-color: #27ae60;
+            --xian-color: #8e44ad;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--light-bg);
+        }
+
+        /* 导航栏 */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo i {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-color);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        /* 清爽首页英雄区域 */
+        .hero {
+            height: 90vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 70px;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
+                        url('https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.9);
+            z-index: -1;
+        }
+
+        .hero-content {
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .title-highlight {
+            color: #f1c40f;
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-outline {
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* 美观的城市导航卡片 */
+        .city-navigation {
+            padding: 5rem 2rem;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .city-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .city-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .city-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .city-image {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .city-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .city-card:hover .city-image img {
+            transform: scale(1.05);
+        }
+
+        .city-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: white;
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .city-content {
+            padding: 1.5rem;
+        }
+
+        .city-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .city-description {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .city-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .city-tag {
+            background-color: var(--light-bg);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .city-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .city-link:hover {
+            gap: 10px;
+        }
+
+        /* 创意旅行贴士部分 */
+        .travel-tips {
+            padding: 5rem 2rem;
+            background-color: var(--light-bg);
+        }
+
+        .tips-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .tip-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .tip-card:nth-child(1) .tip-icon {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+        }
+
+        .tip-card:nth-child(2) .tip-icon {
+            background: linear-gradient(135deg, #9b59b6, #e74c3c);
+        }
+
+        .tip-card:nth-child(3) .tip-icon {
+            background: linear-gradient(135deg, #f1c40f, #e67e22);
+        }
+
+        .tip-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .tip-content {
+            color: #666;
+        }
+
+        .city-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .city-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background-color: var(--light-bg);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .city-item:hover {
+            background-color: #e8f4fc;
+        }
+
+        .city-name-tip {
+            font-weight: 500;
+        }
+
+        .city-time {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .budget-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .budget-item {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 10px;
+            background-color: var(--light-bg);
+            transition: var(--transition);
+        }
+
+        .budget-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .budget-type {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.3rem;
+        }
+
+        .budget-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .essentials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .essential-item {
+            background-color: var(--light-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .essential-item:hover {
+            background-color: #e8f4fc;
+            transform: scale(1.05);
+        }
+
+        .essential-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        /* 底部 */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .city-cards,
+            .tips-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .budget-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .essentials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 1rem;
+                box-shadow: var(--shadow);
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- 导航栏 -->
     <header>
-        <div class="container">
-            <div class="nav-container">
-                <div class="logo">
-                    <i class="fas fa-plane-departure"></i>
-                    <span>三城漫游</span>
-                </div>
-                
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#home" class="active"><i class="fas fa-home"></i> 首页</a></li>
-                    <li><a href="#shanghai"><i class="fas fa-city"></i> 上海</a></li>
-                    <li><a href="#nanjing"><i class="fas fa-landmark"></i> 南京</a></li>
-                    <li><a href="#xian"><i class="fas fa-history"></i> 西安</a></li>
-                    <li><a href="#gallery"><i class="fas fa-images"></i> 相册</a></li>
-                    <li><a href="#tips"><i class="fas fa-lightbulb"></i> 贴士</a></li>
-                </ul>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-compass"></i>
+                <span>三城漫游</span>
             </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active"><i class="fas fa-home"></i> 首页</a></li>
+                <li><a href="#shanghai"><i class="fas fa-city"></i> 上海</a></li>
+                <li><a href="#nanjing"><i class="fas fa-landmark"></i> 南京</a></li>
+                <li><a href="#xian"><i class="fas fa-history"></i> 西安</a></li>
+                <li><a href="#tips"><i class="fas fa-lightbulb"></i> 旅行贴士</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> 关于</a></li>
+            </ul>
         </div>
     </header>
 
-    <!-- 英雄区域 -->
+    <!-- 清爽首页 -->
     <section class="hero" id="home">
+        <div class="hero-background"></div>
         <div class="hero-content">
-            <h1 class="hero-title">发现三座城市<span class="title-highlight">的独特魅力</span></h1>
-            <p class="hero-subtitle">从上海的摩天大楼到南京的历史古迹，再到西安的千年文化，一次旅程，三种体验。</p>
-            <div class="scroll-indicator">
-                <span>向下探索</span>
-                <i class="fas fa-chevron-down"></i>
+            <h1 class="hero-title">
+                发现三座城市
+                <span class="title-highlight">的独特魅力</span>
+            </h1>
+            <p class="hero-subtitle">
+                从上海的现代繁华到南京的历史厚重，再到西安的千年古韵，一次旅程，三种截然不同的文化体验。
+            </p>
+            <div class="hero-cta">
+                <a href="#shanghai" class="btn btn-primary">
+                    <i class="fas fa-map-marked-alt"></i>
+                    开始探索
+                </a>
+                <a href="#tips" class="btn btn-outline">
+                    <i class="fas fa-tips"></i>
+                    旅行贴士
+                </a>
             </div>
         </div>
+        <div class="scroll-indicator">
+            <span>向下滑动</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- 美观城市导航 -->
+    <section class="city-navigation" id="cities">
+        <h2 class="section-title">探索三座魅力城市</h2>
+        <p class="section-subtitle">每座城市都有其独特的性格与故事，等待您来发现</p>
         
-        <!-- 背景轮播图 -->
-        <div class="hero-slideshow">
-            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1504817343863-5092a923803e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1593693399746-4d92796c1c5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')"></div>
-        </div>
-    </section>
-
-    <!-- 城市快速导航 -->
-    <section class="city-quick-nav">
-        <div class="container">
-            <div class="quick-nav-container">
-                <a href="#shanghai" class="quick-nav-item shanghai-nav">
-                    <div class="nav-icon">
+        <div class="city-cards">
+            <!-- 上海卡片 -->
+            <div class="city-card" id="shanghai">
+                <div class="city-image">
+                    <img src="https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="上海">
+                    <div class="city-badge" style="background-color: #fff2f0; color: #e74c3c;">
                         <i class="fas fa-city"></i>
+                        现代都市
                     </div>
-                    <h3>上海</h3>
-                    <p>现代与传统交融</p>
-                    <div class="nav-overlay"></div>
-                </a>
-                
-                <a href="#nanjing" class="quick-nav-item nanjing-nav">
-                    <div class="nav-icon">
-                        <i class="fas fa-landmark"></i>
-                    </div>
-                    <h3>南京</h3>
-                    <p>六朝古都</p>
-                    <div class="nav-overlay"></div>
-                </a>
-                
-                <a href="#xian" class="quick-nav-item xian-nav">
-                    <div class="nav-icon">
-                        <i class="fas fa-history"></i>
-                    </div>
-                    <h3>西安</h3>
-                    <p>千年古都</p>
-                    <div class="nav-overlay"></div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 上海部分 -->
-    <section class="city-section shanghai-section" id="shanghai">
-        <div class="container">
-            <div class="section-header">
-                <div class="city-badge shanghai-badge">
-                    <i class="fas fa-city"></i>
                 </div>
-                <h2 class="section-title">上海 · 东方明珠</h2>
-                <p class="section-subtitle">现代与传统交融的国际大都市</p>
-            </div>
-            
-            <div class="city-intro">
-                <div class="intro-text">
-                    <h3>城市印象</h3>
-                    <p>上海，中国的经济中心，东方与西方交汇的窗口。这里既有外滩的百年历史建筑，也有陆家嘴的摩天大楼天际线；既有豫园的古典雅致，也有法租界的文艺小资。上海是一座充满活力与变化的城市，每一天都在书写新的故事。</p>
+                <div class="city-content">
+                    <h3 class="city-name">
+                        <i class="fas fa-building" style="color: #e74c3c;"></i>
+                        上海
+                    </h3>
+                    <p class="city-description">
+                        东方明珠，现代与传统完美交融的国际大都市。这里既有外滩的百年风华，也有陆家嘴的摩登天际线。
+                    </p>
                     <div class="city-tags">
-                        <span class="city-tag">繁华都市</span>
-                        <span class="city-tag">海派文化</span>
+                        <span class="city-tag">外滩夜景</span>
+                        <span class="city-tag">豫园</span>
+                        <span class="city-tag">法租界</span>
                         <span class="city-tag">美食天堂</span>
-                        <span class="city-tag">购物中心</span>
                     </div>
-                </div>
-                <div class="intro-image">
-                    <div class="image-frame">
-                        <img src="https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="上海外滩">
-                    </div>
+                    <a href="#shanghai-detail" class="city-link">
+                        探索上海
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
-            
-            <!-- 景点展示 -->
-            <div class="attraction-grid">
-                <div class="attraction-card">
-                    <div class="attraction-image">
-                        <img src="https://images.unsplash.com/photo-1558772663-72e8c110ab86?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="豫园">
-                        <div class="attraction-overlay">
-                            <div class="attraction-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="attraction-content">
-                        <h4>豫园城隍庙</h4>
-                        <p>上海最具代表性的古典园林，建于明朝，融合了江南园林的精致与古典建筑的雅致。</p>
-                        <div class="attraction-meta">
-                            <span><i class="far fa-clock"></i> 建议时长: 2-3小时</span>
-                            <span><i class="fas fa-ticket-alt"></i> 门票: ¥40</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="attraction-card">
-                    <div class="attraction-image">
-                        <img src="https://images.unsplash.com/photo-1559388608-40a0aef5c9a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="陆家嘴">
-                        <div class="attraction-overlay">
-                            <div class="attraction-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="attraction-content">
-                        <h4>陆家嘴金融区</h4>
-                        <p>中国最具影响力的金融中心之一，东方明珠、上海中心大厦等地标建筑汇聚于此。</p>
-                        <div class="attraction-meta">
-                            <span><i class="far fa-clock"></i> 建议时长: 3-4小时</span>
-                            <span><i class="fas fa-ticket-alt"></i> 观景台: ¥180-220</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="attraction-card">
-                    <div class="attraction-image">
-                        <img src="https://images.unsplash.com/photo-1496568738683-9a5f6d0157b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="法租界">
-                        <div class="attraction-overlay">
-                            <div class="attraction-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="attraction-content">
-                        <h4>法租界历史街区</h4>
-                        <p>梧桐树下的老洋房、精品小店和咖啡馆，体验上海的浪漫与文艺气息。</p>
-                        <div class="attraction-meta">
-                            <span><i class="far fa-clock"></i> 建议时长: 半天</span>
-                            <span><i class="fas fa-ticket-alt"></i> 免费</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 美食展示 -->
-            <div class="food-section">
-                <h3 class="food-title"><i class="fas fa-utensils"></i> 上海美食地图</h3>
-                <div class="food-grid">
-                    <div class="food-card">
-                        <div class="food-image">
-                            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="小笼包">
-                        </div>
-                        <div class="food-info">
-                            <h4>小笼包</h4>
-                            <p>皮薄馅嫩，汤汁鲜美，上海最具代表性的小吃之一。</p>
-                            <div class="food-tag">推荐餐厅: 南翔馒头店</div>
-                        </div>
-                    </div>
-                    
-                    <div class="food-card">
-                        <div class="food-image">
-                            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="生煎包">
-                        </div>
-                        <div class="food-info">
-                            <h4>生煎包</h4>
-                            <p>底部煎得金黄酥脆，内馅鲜美多汁，香气扑鼻。</p>
-                            <div class="food-tag">推荐餐厅: 大壶春</div>
-                        </div>
-                    </div>
-                    
-                    <div class="food-card">
-                        <div class="food-image">
-                            <img src="https://images.unsplash.com/photo-1586788680434-30d324b2d46f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="本帮菜">
-                        </div>
-                        <div class="food-info">
-                            <h4>本帮菜</h4>
-                            <p>红烧肉、油爆虾、腌笃鲜，浓油赤酱的上海特色菜肴。</p>
-                            <div class="food-tag">推荐餐厅: 老正兴菜馆</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- 南京部分 -->
-    <section class="city-section nanjing-section" id="nanjing">
-        <div class="container">
-            <div class="section-header">
-                <div class="city-badge nanjing-badge">
-                    <i class="fas fa-landmark"></i>
-                </div>
-                <h2 class="section-title">南京 · 六朝古都</h2>
-                <p class="section-subtitle">历史与现代交织的文化名城</p>
-            </div>
-            
-            <div class="city-intro reverse-layout">
-                <div class="intro-image">
-                    <div class="image-frame">
-                        <img src="https://images.unsplash.com/photo-1559388798-70ab5b353731?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="南京中山陵">
+            <!-- 南京卡片 -->
+            <div class="city-card" id="nanjing">
+                <div class="city-image">
+                    <img src="https://images.unsplash.com/photo-1593693399746-4d92796c1c5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="南京">
+                    <div class="city-badge" style="background-color: #f0f9f0; color: #27ae60;">
+                        <i class="fas fa-landmark"></i>
+                        六朝古都
                     </div>
                 </div>
-                <div class="intro-text">
-                    <h3>城市印象</h3>
-                    <p>南京，中国四大古都之一，拥有2500多年建城史。这里曾是六朝古都，见证了无数历史变迁。如今的南京，既有中山陵的庄严雄伟，也有夫子庙的热闹繁华；既有明城墙的厚重历史，也有玄武湖的自然宁静。南京是一座值得慢慢品味的城市。</p>
+                <div class="city-content">
+                    <h3 class="city-name">
+                        <i class="fas fa-monument" style="color: #27ae60;"></i>
+                        南京
+                    </h3>
+                    <p class="city-description">
+                        六朝古都，承载着厚重的历史文化。中山陵的庄严，秦淮河的旖旎，共同诉说着金陵往事。
+                    </p>
                     <div class="city-tags">
-                        <span class="city-tag">历史古迹</span>
-                        <span class="city-tag">文化底蕴</span>
-                        <span class="city-tag">秦淮风情</span>
-                        <span class="city-tag">自然风光</span>
+                        <span class="city-tag">中山陵</span>
+                        <span class="city-tag">秦淮河</span>
+                        <span class="city-tag">明孝陵</span>
+                        <span class="city-tag">夫子庙</span>
                     </div>
+                    <a href="#nanjing-detail" class="city-link">
+                        探索南京
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
-            
-            <!-- 景点展示 -->
-            <div class="attraction-grid">
-                <div class="attraction-card">
-                    <div class="attraction-image">
-                        <img src="https://images.unsplash.com/photo-1559388798-70ab5b353731?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="中山陵">
-                        <div class="attraction-overlay">
-                            <div class="attraction-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="attraction-content">
-                        <h4>中山陵</h4>
-                        <p>孙中山先生的陵寝，建筑宏伟庄严，依山而建，气势磅礴。</p>
-                        <div class="attraction-meta">
-                            <span><i class="far fa-clock"></i> 建议时长: 2-3小时</span>
-                            <span><i class="fas fa-ticket-alt"></i> 门票: 免费</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="attraction-card">
-                    <div class="attraction-image">
-                        <img src="https://images.unsplash.com/photo-1598944351819-3e3964c75612?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="夫子庙">
-                        <div class="attraction-overlay">
-                            <div class="attraction-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="attraction-content">
-                        <h4>夫子庙秦淮河</h4>
-                        <p>古色古香的建筑群，夜晚秦淮河畔灯火辉煌，美景如画。</p>
-                        <div class="attraction-meta">
-                            <span><i class="far fa-clock"></i> 建议时长: 3-4小时</span>
-                            <span><i class="fas fa-ticket-alt"></i> 部分景点收费</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="attraction-card">
-                    <div class="attraction-image">
-                        <img src="https://images.unsplash.com/photo-1599125474528-63c607004b24?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="明孝陵">
-                        <div class="attraction-overlay">
-                            <div class="attraction-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="attraction-content">
-                        <h4>明孝陵</h4>
-                        <p>明朝开国皇帝朱元璋的陵墓，神道石像生雕刻精美，历史价值极高。</p>
-                        <div class="attraction-meta">
-                            <span><i class="far fa-clock"></i> 建议时长: 2小时</span>
-                            <span><i class="fas fa-ticket-alt"></i> 门票: ¥70</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 美食展示 -->
-            <div class="food-section">
-                <h3 class="food-title"><i class="fas fa-utensils"></i> 南京美食地图</h3>
-                <div class="food-grid">
-                    <div class="food-card">
-                        <div class="food-image">
-                            <img src="https://images.unsplash.com/photo-1543253687-c931c8e01820?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="盐水鸭">
-                        </div>
-                        <div class="food-info">
-                            <h4>盐水鸭</h4>
-                            <p>皮白肉嫩，咸淡适中，是南京最具代表性的美食。</p>
-                            <div class="food-tag">推荐: 金陵饭店盐水鸭</div>
-                        </div>
-                    </div>
-                    
-                    <div class="food-card">
-                        <div class="food-image">
-                            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="鸭血粉丝汤">
-                        </div>
-                        <div class="food-info">
-                            <h4>鸭血粉丝汤</h4>
-                            <p>鸭血嫩滑，粉丝爽口，汤汁鲜美，冬日暖胃佳品。</p>
-                            <div class="food-tag">推荐: 回味鸭血粉丝汤</div>
-                        </div>
-                    </div>
-                    
-                    <div class="food-card">
-                        <div class="food-image">
-                            <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="秦淮八绝">
-                        </div>
-                        <div class="food-info">
-                            <h4>秦淮八绝</h4>
-                            <p>八种传统点心，各具特色，品尝老南京的味道。</p>
-                            <div class="food-tag">推荐: 夫子庙美食街</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- 西安部分 -->
-    <section class="city-section xian-section" id="xian">
-        <div class="container">
-            <div class="section-header">
-                <div class="city-badge xian-badge">
-                    <i class="fas fa-history"></i>
+            <!-- 西安卡片 -->
+            <div class="city-card" id="xian">
+                <div class="city-image">
+                    <img src="https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="西安">
+                    <div class="city-badge" style="background-color: #f8f0ff; color: #8e44ad;">
+                        <i class="fas fa-history"></i>
+                        千年古都
+                    </div>
                 </div>
-                <h2 class="section-title">西安 · 千年古都</h2>
-                <p class="section-subtitle">丝绸之路起点，历史文化宝库</p>
-            </div>
-            
-            <div class="city-intro">
-                <div class="intro-text">
-                    <h3>城市印象</h3>
-                    <p>西安，世界四大古都之一，中国历史上建都朝代最多、时间最长的城市。这里是中华文明的重要发祥地，丝绸之路的起点。兵马俑的震撼、古城墙的雄伟、回民街的美食、大唐不夜城的繁华，共同构成了西安独特的魅力。这是一座能让你穿越时空，感受千年历史厚重的城市。</p>
+                <div class="city-content">
+                    <h3 class="city-name">
+                        <i class="fas fa-archway" style="color: #8e44ad;"></i>
+                        西安
+                    </h3>
+                    <p class="city-description">
+                        十三朝古都，丝绸之路的起点。兵马俑的震撼，古城墙的厚重，回民街的美食，共同构成西安的独特魅力。
+                    </p>
                     <div class="city-tags">
-                        <span class="city-tag">历史遗迹</span>
-                        <span class="city-tag">丝绸之路</span>
-                        <span class="city-tag">美食之都</span>
-                        <span class="city-tag">文化宝库</span>
+                        <span class="city-tag">兵马俑</span>
+                        <span class="city-tag">古城墙</span>
+                        <span class="city-tag">回民街</span>
+                        <span class="city-tag">大雁塔</span>
                     </div>
+                    <a href="#xian-detail" class="city-link">
+                        探索西安
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                <div class="intro-image">
-                    <div class="image-frame">
-                        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="西安兵马俑">
+            </div>
+        </div>
+    </section>
+
+    <!-- 创意旅行贴士 -->
+    <section class="travel-tips" id="tips">
+        <h2 class="section-title">实用旅行贴士</h2>
+        <p class="section-subtitle">精心整理的实用信息，让您的旅程更加顺利愉快</p>
+        
+        <div class="tips-container">
+            <!-- 最佳旅行时间 -->
+            <div class="tip-card">
+                <div class="tip-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3 class="tip-title">最佳旅行时间</h3>
+                <div class="tip-content">
+                    <p>选择合适的时间旅行，能获得更好的体验：</p>
+                    <div class="city-list">
+                        <div class="city-item">
+                            <span class="city-name-tip">上海</span>
+                            <span class="city-time">3-5月、9-11月</span>
+                        </div>
+                        <div class="city-item">
+                            <span class="city-name-tip">南京</span>
+                            <span class="city-time">9-11月（赏秋）</span>
+                        </div>
+                        <div class="city-item">
+                            <span class="city-name-tip">西安</span>
+                            <span class="city-time">4-5月、9-10月</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- 景点展示 -->
-            <div class="attraction-grid">
-                <div class="attraction-card">
-                    <div class="attraction-image">
-                        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="兵马俑">
-                        <div class="attraction-overlay">
-                            <div class="attraction-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+
+            <!-- 预算建议 -->
+            <div class="tip-card">
+                <div class="tip-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <h3 class="tip-title">预算建议（每日）</h3>
+                <div class="tip-content">
+                    <p>根据您的旅行风格选择合适的预算：</p>
+                    <div class="budget-grid">
+                        <div class="budget-item">
+                            <div class="budget-type">经济型</div>
+                            <div class="budget-price">¥300-500</div>
+                            <small>青旅+本地美食</small>
+                        </div>
+                        <div class="budget-item">
+                            <div class="budget-type">舒适型</div>
+                            <div class="budget-price">¥500-800</div>
+                            <small>酒店+特色餐厅</small>
+                        </div>
+                        <div class="budget-item">
+                            <div class="budget-type">豪华型</div>
+                            <div class="budget-price">¥800+</div>
+                            <small>高档酒店+自由行</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 必备物品 -->
+            <div class="tip-card">
+                <div class="tip-icon">
+                    <i class="fas fa-suitcase"></i>
+                </div>
+                <h3 class="tip-title">旅行必备物品</h3>
+                <div class="tip-content">
+                    <p>确保带齐这些物品，让旅行无忧：</p>
+                    <div class="essentials-grid">
+                        <div class="essential-item">
+                            <div class="essential-icon">
+                                <i class="fas fa-shoe-prints"></i>
                             </div>
+                            <div>舒适鞋</div>
                         </div>
-                    </div>
-                    <div class="attraction-content">
-                        <h4>兵马俑博物馆</h4>
-                        <p>世界第八大奇迹，秦始皇陵的陪葬坑，规模宏大，震撼人心。</p>
-                        <div class="attraction-meta">
-                            <span><i class="far fa-clock"></i> 建议时长: 半天</span>
-                            <span><i class="fas fa-ticket-alt"></i> 门票: ¥120</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="attraction-card">
-                    <div class="attraction-image">
-                        <img src="https://images.unsplash.com/photo-1588666309990-d68f08e3d4c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="西安城墙">
-                        <div class="attraction-overlay">
-                            <div class="attraction-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                        <div class="essential-item">
+                            <div class="essential-icon">
+                                <i class="fas fa-sun"></i>
                             </div>
+                            <div>防晒用品</div>
                         </div>
-                    </div>
-                    <div class="attraction-content">
-                        <h4>西安古城墙</h4>
-                        <p>中国现存规模最大、保存最完整的古代城垣，可骑行游览全貌。</p>
-                        <div class="attraction-meta">
-                            <span><i class="far fa-clock"></i> 建议时长: 2-3小时</span>
-                            <span><i class="fas fa-ticket-alt"></i> 门票: ¥54</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="attraction-card">
-                    <div class="attraction-image">
-                        <img src="https://images.unsplash.com/photo-1595411425730-e2c3c5a0f5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="回民街">
-                        <div class="attraction-overlay">
-                            <div class="attraction-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
+                        <div class="essential-item">
+                            <div class="essential-icon">
+                                <i class="fas fa-battery-full"></i>
                             </div>
+                            <div>充电宝</div>
                         </div>
-                    </div>
-                    <div class="attraction-content">
-                        <h4>回民街</h4>
-                        <p>西安著名的小吃街，汇聚了西北地区各种特色美食，吃货天堂。</p>
-                        <div class="attraction-meta">
-                            <span><i class="far fa-clock"></i> 建议时长: 2-3小时</span>
-                            <span><i class="fas fa-ticket-alt"></i> 免费</span>
+                        <div class="essential-item">
+                            <div class="essential-icon">
+                                <i class="fas fa-umbrella"></i>
+                            </div>
+                            <div>雨具</div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 美食展示 -->
-            <div class="food-section">
-                <h3 class="food-title"><i class="fas fa-utensils"></i> 西安美食地图</h3>
-                <div class="food-grid">
-                    <div class="food-card">
-                        <div class="food-image">
-                            <img src="https://images.unsplash.com/photo-1529925924099-9c8c6b7c8a5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="肉夹馍">
+                        <div class="essential-item">
+                            <div class="essential-icon">
+                                <i class="fas fa-pills"></i>
+                            </div>
+                            <div>常用药</div>
                         </div>
-                        <div class="food-info">
-                            <h4>肉夹馍</h4>
-                            <p>腊汁肉配白吉馍，外酥里嫩，香气四溢，西安名片。</p>
-                            <div class="food-tag">推荐: 樊记腊汁肉夹馍</div>
-                        </div>
-                    </div>
-                    
-                    <div class="food-card">
-                        <div class="food-image">
-                            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="凉皮">
-                        </div>
-                        <div class="food-info">
-                            <h4>凉皮</h4>
-                            <p>爽滑可口，酸辣开胃，夏日最佳美食。</p>
-                            <div class="food-tag">推荐: 魏家凉皮</div>
-                        </div>
-                    </div>
-                    
-                    <div class="food-card">
-                        <div class="food-image">
-                            <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="羊肉泡馍">
-                        </div>
-                        <div class="food-info">
-                            <h4>羊肉泡馍</h4>
-                            <p>汤浓肉烂，香气四溢，冬日暖身佳品。</p>
-                            <div class="food-tag">推荐: 老孙家羊肉泡馍</div>
+                        <div class="essential-item">
+                            <div class="essential-icon">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                            <div>身份证件</div>
                         </div>
                     </div>
                 </div>
@@ -513,249 +846,90 @@
         </div>
     </section>
 
-    <!-- 相册部分 -->
-    <section class="gallery-section" id="gallery">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-images"></i> 旅行相册</h2>
-                <p class="section-subtitle">用镜头记录三座城市的美好瞬间</p>
+    <!-- 底部 -->
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-compass"></i>
+                三城漫游
             </div>
-            
-            <div class="gallery-container">
-                <div class="gallery-grid">
-                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
-                        <div class="gallery-overlay">
-                            <h4>上海外滩夜景</h4>
-                            <p>灯火辉煌的万国建筑群</p>
-                        </div>
-                    </div>
-                    
-                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1559388608-40a0aef5c9a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
-                        <div class="gallery-overlay">
-                            <h4>陆家嘴天际线</h4>
-                            <p>现代上海的象征</p>
-                        </div>
-                    </div>
-                    
-                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1559388798-70ab5b353731?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
-                        <div class="gallery-overlay">
-                            <h4>南京中山陵</h4>
-                            <p>庄严肃穆的历史遗迹</p>
-                        </div>
-                    </div>
-                    
-                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1598944351819-3e3964c75612?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
-                        <div class="gallery-overlay">
-                            <h4>秦淮河夜景</h4>
-                            <p>桨声灯影里的秦淮河</p>
-                        </div>
-                    </div>
-                    
-                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
-                        <div class="gallery-overlay">
-                            <h4>西安兵马俑</h4>
-                            <p>世界第八大奇迹</p>
-                        </div>
-                    </div>
-                    
-                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1588666309990-d68f08e3d4c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
-                        <div class="gallery-overlay">
-                            <h4>西安古城墙</h4>
-                            <p>中国保存最完整的古城墙</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="gallery-controls">
-                    <button class="gallery-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-                    <button class="gallery-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-                </div>
+            <p style="margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                专注于分享上海、南京、西安三座城市的旅行体验，提供实用的旅行建议和精彩的景点推荐。
+            </p>
+            <div class="footer-links">
+                <a href="#home"><i class="fas fa-home"></i> 首页</a>
+                <a href="#shanghai"><i class="fas fa-city"></i> 上海</a>
+                <a href="#nanjing"><i class="fas fa-landmark"></i> 南京</a>
+                <a href="#xian"><i class="fas fa-history"></i> 西安</a>
+                <a href="#tips"><i class="fas fa-lightbulb"></i> 旅行贴士</a>
+                <a href="mailto:contact@example.com"><i class="fas fa-envelope"></i> 联系我们</a>
             </div>
-        </div>
-    </section>
-
-    <!-- 旅行贴士部分 -->
-    <section class="tips-section" id="tips">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-lightbulb"></i> 实用旅行贴士</h2>
-                <p class="section-subtitle">让您的旅程更加顺利愉快</p>
-            </div>
-            
-            <div class="tips-container">
-                <div class="tips-card">
-                    <div class="tips-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <h3>最佳旅行时间</h3>
-                    <div class="tips-content">
-                        <p><strong>上海:</strong> 3-5月（春季），9-11月（秋季）</p>
-                        <p><strong>南京:</strong> 9-11月（秋季，栖霞山红叶）</p>
-                        <p><strong>西安:</strong> 4-5月，9-10月（春秋季）</p>
-                    </div>
-                </div>
-                
-                <div class="tips-card">
-                    <div class="tips-icon">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <h3>预算建议</h3>
-                    <div class="tips-content">
-                        <p><strong>经济型:</strong> ¥300-500/天</p>
-                        <p><strong>舒适型:</strong> ¥500-800/天</p>
-                        <p><strong>豪华型:</strong> ¥800+/天</p>
-                    </div>
-                </div>
-                
-                <div class="tips-card">
-                    <div class="tips-icon">
-                        <i class="fas fa-suitcase"></i>
-                    </div>
-                    <h3>必备物品</h3>
-                    <div class="tips-content">
-                        <p>舒适步行鞋、防晒用品、充电宝、雨具、常用药品、身份证件、相机</p>
-                    </div>
-                </div>
-                
-                <div class="tips-card">
-                    <div class="tips-icon">
-                        <i class="fas fa-map-marked-alt"></i>
-                    </div>
-                    <h3>交通建议</h3>
-                    <div class="tips-content">
-                        <p><strong>上海:</strong> 地铁发达，下载"大都会"APP</p>
-                        <p><strong>南京:</strong> 地铁+公交，景点较集中</p>
-                        <p><strong>西安:</strong> 地铁覆盖主要景点，市区可骑行</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 对比部分 -->
-    <section class="comparison-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-chart-bar"></i> 三城对比</h2>
-                <p class="section-subtitle">快速了解三座城市的主要特点</p>
-            </div>
-            
-            <div class="comparison-container">
-                <div class="comparison-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>比较项目</th>
-                                <th><span class="shanghai-color">上海</span></th>
-                                <th><span class="nanjing-color">南京</span></th>
-                                <th><span class="xian-color">西安</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>城市特色</td>
-                                <td>现代国际大都市</td>
-                                <td>六朝古都</td>
-                                <td>千年历史名城</td>
-                            </tr>
-                            <tr>
-                                <td>最佳季节</td>
-                                <td>春秋季</td>
-                                <td>秋季</td>
-                                <td>春秋季</td>
-                            </tr>
-                            <tr>
-                                <td>推荐天数</td>
-                                <td>3-4天</td>
-                                <td>2-3天</td>
-                                <td>3-4天</td>
-                            </tr>
-                            <tr>
-                                <td>必去景点</td>
-                                <td>外滩、陆家嘴</td>
-                                <td>中山陵、夫子庙</td>
-                                <td>兵马俑、古城墙</td>
-                            </tr>
-                            <tr>
-                                <td>特色美食</td>
-                                <td>小笼包、生煎包</td>
-                                <td>盐水鸭、鸭血粉丝汤</td>
-                                <td>肉夹馍、羊肉泡馍</td>
-                            </tr>
-                            <tr>
-                                <td>适合人群</td>
-                                <td>都市爱好者</td>
-                                <td>历史文化爱好者</td>
-                                <td>历史探索者</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-header">
-                    <div class="footer-logo">
-                        <i class="fas fa-plane-departure"></i>
-                        <span>三城漫游</span>
-                    </div>
-                    <p class="footer-desc">记录我的三城旅行故事，分享上海、南京和西安的独特魅力。希望我的经历能为你的旅程提供一些灵感。</p>
-                </div>
-                
-                <div class="footer-grid">
-                    <div class="footer-column">
-                        <h4>快速链接</h4>
-                        <ul>
-                            <li><a href="#home"><i class="fas fa-chevron-right"></i> 首页</a></li>
-                            <li><a href="#shanghai"><i class="fas fa-chevron-right"></i> 上海</a></li>
-                            <li><a href="#nanjing"><i class="fas fa-chevron-right"></i> 南京</a></li>
-                            <li><a href="#xian"><i class="fas fa-chevron-right"></i> 西安</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>旅行资源</h4>
-                        <ul>
-                            <li><a href="#gallery"><i class="fas fa-chevron-right"></i> 旅行相册</a></li>
-                            <li><a href="#tips"><i class="fas fa-chevron-right"></i> 旅行贴士</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i> 行程规划</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i> 美食地图</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>联系我</h4>
-                        <div class="contact-info">
-                            <p><i class="fas fa-envelope"></i> traveler@example.com</p>
-                            <p><i class="fas fa-phone"></i> +86 123 4567 8900</p>
-                            <p><i class="fas fa-map-marker-alt"></i> 中国 · 旅行者</p>
-                        </div>
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-weibo"></i></a>
-                            <a href="#"><i class="fab fa-weixin"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="footer-bottom">
-                    <p>&copy; 2023 三城漫游个人旅行博客 | 设计：旅行爱好者 | 图片来自 Unsplash</p>
-                </div>
+            <div class="copyright">
+                © 2023 三城漫游旅行博客. 保留所有权利.
             </div>
         </div>
     </footer>
 
-    <!-- 返回顶部按钮 -->
-    <button class="back-to-top" id="backToTop">
-        <i class="fas fa-chevron-up"></i>
-    </button>
+    <script>
+        // 移动端菜单切换
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
 
-    <script src="script.js"></script>
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 关闭移动端菜单
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if(window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.08)';
+            }
+        });
+
+        // 卡片悬停效果增强
+        document.querySelectorAll('.city-card, .tip-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+
+        // 页面加载动画
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
 </body>
 </html>
