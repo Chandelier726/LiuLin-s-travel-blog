@@ -1,0 +1,22 @@
+<!-- 创建一个 fix-links.html 文件 -->
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+// 自动修复所有链接
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取所有链接
+    const links = document.querySelectorAll('a');
+    
+    links.forEach(link => {
+        // 修复上海链接
+        if (link.getAttribute('href') === 'shanghai.html') {
+            link.setAttribute('href', 'subject.html');
+        }
+    });
+    
+    alert('链接修复完成！请保存文件。');
+});
+</script>
+</body>
+</html>
