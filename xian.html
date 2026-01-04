@@ -6,554 +6,90 @@
     <title>西安 | 千年古都 - 三城漫游</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <style>
         :root {
             --primary-color: #2c3e50;
             --accent-color: #8e44ad;
+            --shanghai-color: #e74c3c;
+            --nanjing-color: #27ae60;
+            --xian-color: #8e44ad;
             --light-bg: #f8f9fa;
             --white: #ffffff;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s ease;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: var(--light-bg);
-        }
-
-        /* 导航栏 */
-        header {
-            background-color: var(--white);
-            box-shadow: var(--shadow);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .logo i {
-            color: var(--accent-color);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: var(--transition);
-            padding: 0.5rem 0;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--accent-color);
-        }
-
-        /* 城市英雄区域 */
-        .city-hero {
-            height: 70vh;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: flex-end;
-            margin-top: 70px;
-        }
-
-        .city-hero-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3)),
-                        url('https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            z-index: -1;
-        }
-
-        .city-hero-content {
-            color: white;
-            padding: 3rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .city-hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .city-hero-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-        }
-
-        .city-stats {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        /* 内容区域 */
-        .city-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100px;
-            height: 4px;
-            background-color: var(--accent-color);
-            border-radius: 2px;
-        }
-
-        .section-intro {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 3rem;
-            max-width: 800px;
-        }
-
-        /* 景点网格 */
-        .attractions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .attraction-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .attraction-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .attraction-image {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .attraction-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .attraction-card:hover .attraction-image img {
-            transform: scale(1.05);
-        }
-
-        .attraction-content {
-            padding: 1.5rem;
-        }
-
-        .attraction-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
-
-        .attraction-description {
-            color: #666;
-            margin-bottom: 1rem;
-        }
-
-        .attraction-meta {
-            display: flex;
-            justify-content: space-between;
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        /* 美食部分 */
-        .food-section {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 3rem 0;
-            box-shadow: var(--shadow);
-        }
-
-        .food-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .food-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            border-radius: 10px;
-            background-color: var(--light-bg);
-            transition: var(--transition);
-        }
-
-        .food-item:hover {
-            background-color: #f5e9ff;
-            transform: translateX(5px);
-        }
-
-        .food-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        .food-info h4 {
-            margin-bottom: 0.3rem;
-            color: var(--primary-color);
-        }
-
-        .food-info p {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        /* 文化部分 */
-        .culture-section {
-            margin: 3rem 0;
-        }
-
-        .culture-timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 3rem auto;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .timeline-year {
-            min-width: 100px;
-            text-align: center;
-            padding: 0.5rem 1rem;
-            background: var(--accent-color);
-            color: white;
-            border-radius: 25px;
-            font-weight: 700;
-            height: fit-content;
-        }
-
-        .timeline-content {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            flex: 1;
-        }
-
-        .timeline-content h4 {
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
-
-        /* 秦始皇陵特别展示 */
-        .qinshihuang-section {
-            background: linear-gradient(135deg, #f9f3ff, #f5e9ff);
-            border-radius: 15px;
-            padding: 3rem;
-            margin: 3rem 0;
-            border-left: 5px solid var(--accent-color);
-        }
-
-        .qinshihuang-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .qinshihuang-image {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .qinshihuang-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .qinshihuang-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .qinshihuang-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .qinshihuang-details {
-            list-style: none;
-            margin-top: 1.5rem;
-        }
-
-        .qinshihuang-details li {
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .qinshihuang-details i {
-            color: var(--accent-color);
-        }
-
-        /* 旅行建议 */
-        .tips-section {
-            background: linear-gradient(135deg, #f5e9ff, #f9f3ff);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 3rem 0;
-        }
-
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .tip-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-        }
-
-        .tip-item i {
-            color: var(--accent-color);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        /* 特色体验 */
-        .experience-section {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 3rem 0;
-            box-shadow: var(--shadow);
-        }
-
-        .experience-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .experience-card {
-            background: var(--light-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .experience-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .experience-icon {
-            background: var(--accent-color);
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-            font-size: 2rem;
-        }
-
-        .experience-content {
-            padding: 1.5rem;
-        }
-
-        .experience-content h4 {
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .city-hero-title {
-                font-size: 2.5rem;
-            }
-
-            .city-hero-subtitle {
-                font-size: 1.2rem;
-            }
-
-            .city-stats {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .attractions-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .timeline-item {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .timeline-year {
-                align-self: flex-start;
-            }
-
-            .experience-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .qinshihuang-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-        }
-
-        /* 底部 */
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--accent-color);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 500;
-            margin-top: 2rem;
-            transition: var(--transition);
-        }
-
-        .back-button:hover {
-            background: #703688;
-            transform: translateY(-3px);
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans SC', sans-serif; line-height: 1.6; color: #333; background-color: var(--light-bg); padding-top: 80px; }
+
+        /* 导航栏样式 */
+        header { background-color: var(--white); box-shadow: var(--shadow); position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 700; color: var(--primary-color); text-decoration: none; }
+        .logo i { color: var(--accent-color); }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: var(--primary-color); font-weight: 500; display: flex; align-items: center; gap: 5px; transition: var(--transition); padding: 0.5rem 0; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--xian-color); }
+        .nav-links a.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background-color: var(--xian-color); border-radius: 2px; }
+
+        /* 页面通用样式 */
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .page-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary-color); text-align: center; margin-bottom: 1rem; }
+        .page-subtitle { color: #666; text-align: center; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary-color); margin: 4rem 0 2rem; position: relative; padding-bottom: 1rem; }
+        .section-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 80px; height: 3px; background-color: var(--xian-color); border-radius: 2px; }
+        .section-intro { color: #666; margin-bottom: 2rem; font-size: 1.1rem; }
+
+        /* 景点卡片样式 */
+        .attractions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+        .attraction-card { background-color: var(--white); border-radius: 10px; box-shadow: var(--shadow); overflow: hidden; transition: var(--transition); }
+        .attraction-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); }
+        .attraction-image { height: 220px; overflow: hidden; }
+        .attraction-image img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .attraction-card:hover .attraction-image img { transform: scale(1.05); }
+        .attraction-content { padding: 1.5rem; }
+        .attraction-name { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 0.8rem; }
+        .attraction-description { color: #666; margin-bottom: 1rem; line-height: 1.7; }
+        .attraction-meta { display: flex; justify-content: space-between; color: #777; font-size: 0.9rem; }
+
+        /* 文化历史板块 */
+        .culture-section { margin-bottom: 4rem; }
+        .culture-img { width: 100%; max-width: 1000px; height: 450px; border-radius: 10px; overflow: hidden; margin: 2rem auto; box-shadow: var(--shadow); }
+        .culture-img img { width: 100%; height: 100%; object-fit: cover; }
+        .culture-timeline { margin-top: 3rem; }
+        .timeline-item { display: flex; gap: 2rem; margin-bottom: 3rem; position: relative; }
+        .timeline-dot { width: 15px; height: 15px; background-color: var(--xian-color); border-radius: 50%; margin-top: 0.5rem; flex-shrink: 0; }
+        .timeline-line { width: 2px; background-color: #e0e0e0; margin-left: 6.5px; flex-shrink: 0; position: absolute; top: 20px; bottom: -3rem; z-index: 1; }
+        .timeline-item:last-child .timeline-line { display: none; }
+        .timeline-content { flex: 1; }
+        .timeline-year { font-size: 1.2rem; font-weight: 700; color: var(--xian-color); margin-bottom: 0.5rem; }
+        .timeline-title { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 0.8rem; }
+        .timeline-desc { color: #666; line-height: 1.7; }
+
+        /* 美食板块 */
+        .food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 4rem; }
+        .food-card { background-color: var(--white); border-radius: 10px; box-shadow: var(--shadow); overflow: hidden; text-align: center; }
+        .food-image { height: 180px; overflow: hidden; }
+        .food-image img { width: 100%; height: 100%; object-fit: cover; }
+        .food-name { padding: 1rem; font-size: 1.1rem; color: var(--primary-color); font-weight: 500; }
+
+        /* 特色体验板块 */
+        .experience-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+        .experience-card { background-color: var(--white); border-radius: 10px; box-shadow: var(--shadow); padding: 2rem; text-align: center; transition: var(--transition); }
+        .experience-card:hover { transform: translateY(-5px); }
+        .experience-icon { font-size: 2.5rem; color: var(--xian-color); margin-bottom: 1.5rem; }
+        .experience-content h4 { font-size: 1.2rem; color: var(--primary-color); margin-bottom: 1rem; }
+        .experience-content p { color: #666; line-height: 1.7; }
+
+        /* 底部样式 */
+        footer { background-color: var(--primary-color); color: var(--white); padding: 3rem 0; margin-top: 5rem; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .footer-logo { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+        .footer-logo i { color: var(--xian-color); }
+        .footer-desc { color: #ccc; margin-bottom: 2rem; max-width: 600px; }
+        .footer-links { display: flex; gap: 1.5rem; list-style: none; margin-bottom: 2rem; }
+        .footer-links a { color: #ccc; text-decoration: none; transition: var(--transition); }
+        .footer-links a:hover { color: var(--xian-color); }
+        .copyright { color: #888; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -561,220 +97,173 @@
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <i class="fas fa-compass"></i>
+                <i class="fas fa-map-marker-alt"></i>
                 <span>三城漫游</span>
             </a>
-
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-
-            <ul class="nav-links" id="navLinks">
+            <ul class="nav-links">
                 <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
-                <li><a href="shanghai.html"><i class="fas fa-city"></i> 上海</a></li>
-                <li><a href="nanjing.html"><i class="fas fa-landmark"></i> 南京</a></li>
-                <li><a href="xian.html" class="active"><i class="fas fa-history"></i> 西安</a></li>
+                <li><a href="shanghai.html"><i class="fas fa-building"></i> 上海</a></li>
+                <li><a href="nanjing.html"><i class="fas fa-tree"></i> 南京</a></li>
+                <li><a href="xian.html" class="active"><i class="fas fa-landmark"></i> 西安</a></li>
                 <li><a href="tips.html"><i class="fas fa-lightbulb"></i> 旅行贴士</a></li>
             </ul>
         </div>
     </header>
 
-    <!-- 城市英雄区域 -->
-    <section class="city-hero">
-        <div class="city-hero-image"></div>
-        <div class="city-hero-content">
-            <h1 class="city-hero-title">西安 · 千年古都</h1>
-            <p class="city-hero-subtitle">十三朝古都，丝绸之路起点，中华文明的发祥地</p>
-            <div class="city-stats">
-                <div class="stat-item">
-                    <span class="stat-value">1295万</span>
-                    <span class="stat-label">城市人口</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-value">10108km²</span>
-                    <span class="stat-label">城市面积</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-value">3100年</span>
-                    <span class="stat-label">建城历史</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-value">4-5天</span>
-                    <span class="stat-label">建议游玩时间</span>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- 页面主体 -->
+    <div class="container">
+        <h1 class="page-title">西安 · 千年古都</h1>
+        <p class="page-subtitle">十三朝古都沉淀着中华文明的厚重历史，兵马俑的震撼、古城墙的壮阔、肉夹馍的香气，构成了独一无二的西安记忆</p>
 
-    <!-- 城市介绍 -->
-    <section class="city-content">
-        <h2 class="section-title">关于西安</h2>
-        <p class="section-intro">
-            西安，古称长安，是中国历史上建都时间最长、建都朝代最多的城市。这里有世界八大奇迹之一的兵马俑，有保存最完整的古城墙，有见证佛教传播的大雁塔。西安是一座活的历史博物馆，每一砖一瓦都诉说着千年的故事。
-        </p>
+        <!-- 著名景点板块（秦始皇陵/兵马俑专属） -->
+        <section>
+            <h2 class="section-title">著名景点</h2>
+            <p class="section-intro">西安的景点以历史古迹为主，其中秦始皇陵及兵马俑是世界文化遗产，更是不可错过的核心打卡地</p>
+            <div class="attractions-grid">
+                <!-- 秦始皇兵马俑一号坑 -->
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.unsplash.com/photo-1528190336458-5e4ed8a4a8c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="秦始皇陵兵马俑一号坑全景">
+                    </div>
+                    <div class="attraction-content">
+                        <h3 class="attraction-name">秦始皇兵马俑一号坑</h3>
+                        <p class="attraction-description">世界第八大奇迹，坑内出土陶俑、陶马约6000件，排列成庞大的军阵，再现秦代军队的恢弘风貌，场面震撼人心。</p>
+                        <div class="attraction-meta">
+                            <span>建议时长: 3-4小时</span>
+                            <span>门票: ¥120</span>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- 秦始皇陵特别展示 -->
-        <div class="qinshihuang-section">
-            <h2 class="section-title">秦始皇陵与兵马俑</h2>
-            <p class="section-intro">世界第八大奇迹，中国古代陵墓的巅峰之作，展现秦朝雄浑气势</p>
-            
-            <div class="qinshihuang-grid">
-                <div class="qinshihuang-image">
-                    <img src="https://images.unsplash.com/photo-1528190336458-5e4ed8a4a8c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="秦始皇兵马俑">
+                <!-- 秦始皇陵铜车马 -->
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.visualchina.com/thumb/1/70/36/79/VCG21703679492.jpg?x-oss-process=image/resize,m_fixed,w_800,h_533" alt="秦始皇陵铜车马（青铜之冠）">
+                    </div>
+                    <div class="attraction-content">
+                        <h3 class="attraction-name">秦陵铜车马</h3>
+                        <p class="attraction-description">秦代青铜铸造的巅峰之作，被誉为“青铜之冠”，精准再现秦始皇巡游的车马仪仗，细节精美绝伦，尽显古代工匠技艺。</p>
+                        <div class="attraction-meta">
+                            <span>建议时长: 1-2小时</span>
+                            <span>含于兵马俑门票内</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="qinshihuang-content">
-                    <h3>秦始皇陵的震撼</h3>
-                    <p>秦始皇陵是中国历史上第一位皇帝嬴政的陵寝，始建于公元前246年，历时39年建成。陵园占地面积达56.25平方公里，是中国历史上规模最大、设计最完善的帝王陵寝。</p>
-                    
-                    <ul class="qinshihuang-details">
-                        <li><i class="fas fa-calendar-alt"></i> <strong>建造时间：</strong>公元前246年-公元前208年</li>
-                        <li><i class="fas fa-map-marker-alt"></i> <strong>地理位置：</strong>西安市临潼区</li>
-                        <li><i class="fas fa-expand-arrows-alt"></i> <strong>占地面积：</strong>56.25平方公里</li>
-                        <li><i class="fas fa-history"></i> <strong>发现时间：</strong>1974年</li>
-                        <li><i class="fas fa-users"></i> <strong>建造人数：</strong>约72万劳工</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
 
-        <!-- 著名景点 -->
-        <h2 class="section-title">著名景点</h2>
-        <div class="attractions-grid">
-            <div class="attraction-card">
-                <div class="attraction-image">
-                    <img src="https://images.unsplash.com/photo-1528190336458-5e4ed8a4a8c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="兵马俑">
+                <!-- 秦始皇陵丽山园 -->
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.visualchina.com/thumb/1/70/36/78/VCG21703678926.jpg?x-oss-process=image/resize,m_fixed,w_800,h_533" alt="秦始皇陵丽山园全景">
+                    </div>
+                    <div class="attraction-content">
+                        <h3 class="attraction-name">秦始皇陵丽山园</h3>
+                        <p class="attraction-description">秦始皇陵核心区域，与兵马俑博物馆隔路相望，现存巨大封土堆、内外城垣遗址，可俯瞰整个秦陵的恢弘布局。</p>
+                        <div class="attraction-meta">
+                            <span>建议时长: 2小时</span>
+                            <span>含于兵马俑门票内</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="attraction-content">
-                    <h3 class="attraction-name">秦始皇兵马俑博物馆</h3>
-                    <p class="attraction-description">世界第八大奇迹，秦始皇陵的陪葬坑，规模宏大，工艺精湛，震撼人心。已发现三个坑，共有陶俑陶马近8000件。</p>
-                    <div class="attraction-meta">
-                        <span>建议时长: 3-4小时</span>
-                        <span>门票: ¥120</span>
+
+                <!-- 兵马俑将军俑展厅 -->
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="https://images.visualchina.com/thumb/1/85/83/53/VCG21858353026.jpg?x-oss-process=image/resize,m_fixed,w_800,h_533" alt="兵马俑将军俑特写">
+                    </div>
+                    <div class="attraction-content">
+                        <h3 class="attraction-name">兵马俑将军俑展厅</h3>
+                        <p class="attraction-description">军阵中的高级军吏，头戴鹖冠、身着精美铠甲，神态威严沉稳，是秦代军队指挥层的真实写照，每个陶俑都有独特面容。</p>
+                        <div class="attraction-meta">
+                            <span>建议时长: 30分钟</span>
+                            <span>含于兵马俑门票内</span>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="attraction-card">
-                <div class="attraction-image">
-                    <img src="https://images.unsplash.com/photo-1541427468627-a89a96e5ca1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="古城墙">
-                </div>
-                <div class="attraction-content">
-                    <h3 class="attraction-name">西安古城墙</h3>
-                    <p class="attraction-description">中国现存规模最大、保存最完整的古代城垣，可骑行游览，俯瞰古城风貌。全长13.74公里，始建于明代。</p>
-                    <div class="attraction-meta">
-                        <span>建议时长: 2-3小时</span>
-                        <span>门票: ¥54</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="attraction-card">
-                <div class="attraction-image">
-                    <img src="https://images.unsplash.com/photo-1598974357801-cbca100e5d10?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="大雁塔">
-                </div>
-                <div class="attraction-content">
-                    <h3 class="attraction-name">大雁塔</h3>
-                    <p class="attraction-description">唐代高僧玄奘为保存佛经而建，西安的标志性建筑，见证佛教传播历史。塔高64.5米，共七层。</p>
-                    <div class="attraction-meta">
-                        <span>建议时长: 2-3小时</span>
-                        <span>门票: ¥40</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 特色美食 -->
-        <div class="food-section">
-            <h2 class="section-title">特色美食</h2>
-            <p class="section-intro">西安美食以面食为主，风味独特，历史悠久，是西北地区饮食文化的代表。</p>
-            <div class="food-grid">
-                <div class="food-item">
-                    <div class="food-icon">
-                        <i class="fas fa-hamburger"></i>
-                    </div>
-                    <div class="food-info">
-                        <h4>肉夹馍</h4>
-                        <p>西安最具代表性的小吃，腊汁肉配上白吉馍，香气扑鼻</p>
-                    </div>
-                </div>
-                <div class="food-item">
-                    <div class="food-icon">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <div class="food-info">
-                        <h4>羊肉泡馍</h4>
-                        <p>西安传统名吃，馍块筋道，羊肉鲜嫩，汤浓味美</p>
-                    </div>
-                </div>
-                <div class="food-item">
-                    <div class="food-icon">
-                        <i class="fas fa-utensil-spoon"></i>
-                    </div>
-                    <div class="food-info">
-                        <h4>凉皮</h4>
-                        <p>陕西特色小吃，筋道爽滑，酸辣开胃，夏日必备</p>
-                    </div>
-                </div>
-                <div class="food-item">
-                    <div class="food-icon">
-                        <i class="fas fa-bread-slice"></i>
-                    </div>
-                    <div class="food-info">
-                        <h4>Biangbiang面</h4>
-                        <p>陕西特色面食，面条宽如裤带，口感筋道，味道浓郁</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 文化历史 -->
-        <div class="culture-section">
+        <!-- 文化历史板块 -->
+        <section class="culture-section">
             <h2 class="section-title">文化历史</h2>
-            <p class="section-intro">西安是中华文明的重要发祥地，先后有13个王朝在此建都，历史底蕴深厚。</p>
+            <p class="section-intro">西安是中华文明的重要发祥地，先后有周、秦、汉、唐等13个王朝在此建都，历史底蕴深厚到触手可及</p>
+            <div class="culture-img">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="西安古城墙与大雁塔同框">
+            </div>
             <div class="culture-timeline">
                 <div class="timeline-item">
-                    <div class="timeline-year">公元前11世纪</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-line"></div>
                     <div class="timeline-content">
-                        <h4>西周建都</h4>
-                        <p>西周在镐京（今西安）建都，开启西安作为都城的历史</p>
+                        <div class="timeline-year">公元前221年</div>
+                        <h3 class="timeline-title">秦始皇统一中国，建都咸阳（今西安附近）</h3>
+                        <p class="timeline-desc">秦始皇统一六国后，建立中国历史上第一个中央集权制封建王朝，修建了秦始皇陵、阿房宫等宏伟建筑，兵马俑便是其陪葬坑的一部分。</p>
                     </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-year">公元前221年</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-line"></div>
                     <div class="timeline-content">
-                        <h4>秦朝统一</h4>
-                        <p>秦始皇统一六国，建立中国第一个封建王朝，定都咸阳（近西安）</p>
+                        <div class="timeline-year">公元前138年</div>
+                        <h3 class="timeline-title">张骞出使西域，开辟丝绸之路</h3>
+                        <p class="timeline-desc">从西安（长安）出发，张骞出使西域，打通了东西方经济文化交流的通道，西安成为丝绸之路的起点，见证了中外文明的交融。</p>
                     </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-year">公元618年</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-line"></div>
                     <div class="timeline-content">
-                        <h4>唐朝盛世</h4>
-                        <p>唐朝建立，定都长安（今西安），开启中国古代最辉煌的时期</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">1370年</div>
-                    <div class="timeline-content">
-                        <h4>明朝建城</h4>
-                        <p>明朝在唐长安城基础上修建西安城，奠定现代西安城市格局</p>
+                        <div class="timeline-year">公元618年-907年</div>
+                        <h3 class="timeline-title">唐朝定都长安，迎来盛世巅峰</h3>
+                        <p class="timeline-desc">唐朝时期，长安是世界上最大的城市之一，人口达百万，大明宫、大雁塔、芙蓉园等建筑彰显了盛唐的繁华与气魄。</p>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- 特色体验 -->
-        <div class="experience-section">
+        <!-- 美食板块 -->
+        <section>
+            <h2 class="section-title">特色美食</h2>
+            <p class="section-intro">西安美食以面食为主，口味偏重，肉夹馍、凉皮、羊肉泡馍等经典美食，承载着当地的饮食文化记忆</p>
+            <div class="food-grid">
+                <div class="food-card">
+                    <div class="food-image">
+                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="西安肉夹馍">
+                    </div>
+                    <h3 class="food-name">腊汁肉夹馍</h3>
+                </div>
+                <div class="food-card">
+                    <div class="food-image">
+                        <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="西安羊肉泡馍">
+                    </div>
+                    <h3 class="food-name">羊肉泡馍</h3>
+                </div>
+                <div class="food-card">
+                    <div class="food-image">
+                        <img src="https://images.unsplash.com/photo-1563634632323-2a8b571a1d0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="西安凉皮">
+                    </div>
+                    <h3 class="food-name">秦镇凉皮</h3>
+                </div>
+                <div class="food-card">
+                    <div class="food-image">
+                        <img src="https://images.unsplash.com/photo-1593123572409-d2131381b923?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="西安biangbiang面">
+                    </div>
+                    <h3 class="food-name">BiangBiang面</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- 特色体验板块 -->
+        <section>
             <h2 class="section-title">特色体验</h2>
-            <p class="section-intro">在西安，除了参观历史遗迹，还可以体验这些独特的文化活动。</p>
+            <p class="section-intro">除了参观古迹，这些独特体验能让你更深入地感受西安的文化魅力</p>
             <div class="experience-grid">
                 <div class="experience-card">
                     <div class="experience-icon">
-                        <i class="fas fa-bicycle"></i>
+                        <i class="fas fa-walking"></i>
                     </div>
                     <div class="experience-content">
-                        <h4>骑行古城墙</h4>
-                        <p>在古城墙上骑行一周，感受历史与现代的交融，俯瞰西安全景。</p>
+                        <h4>骑行西安古城墙</h4>
+                        <p>在明城墙骑行，俯瞰老西安风貌，傍晚时分可以欣赏落日余晖，感受古今交融的城市气息。</p>
                     </div>
                 </div>
                 <div class="experience-card">
@@ -782,128 +271,40 @@
                         <i class="fas fa-music"></i>
                     </div>
                     <div class="experience-content">
-                        <h4>观看《长恨歌》</h4>
-                        <p>在华清宫观看大型实景历史舞剧，感受唐玄宗与杨贵妃的爱情故事。</p>
+                        <h4>观看《长恨歌》实景演出</h4>
+                        <p>以华清宫为舞台，重现唐玄宗与杨贵妃的爱情故事，灯光与山水相融，视觉效果震撼。</p>
                     </div>
                 </div>
                 <div class="experience-card">
                     <div class="experience-icon">
-                        <i class="fas fa-shopping-bag"></i>
+                        <i class="fas fa-store"></i>
                     </div>
                     <div class="experience-content">
-                        <h4>逛回民街夜市</h4>
-                        <p>夜晚漫步回民街，品尝各种西安小吃，感受浓浓的市井气息。</p>
-                    </div>
-                </div>
-                <div class="experience-card">
-                    <div class="experience-icon">
-                        <i class="fas fa-landmark"></i>
-                    </div>
-                    <div class="experience-content">
-                        <h4>参观陕西历史博物馆</h4>
-                        <p>了解陕西从史前到明清的完整历史，欣赏珍贵文物。</p>
+                        <h4>逛回民街吃遍小吃</h4>
+                        <p>西安最热闹的美食街，汇聚了各种西北特色小吃，从肉夹馍到甑糕，满足你的味蕾需求。</p>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- 旅行建议 -->
-        <div class="tips-section">
-            <h2 class="section-title">旅行建议</h2>
-            <div class="tips-grid">
-                <div class="tip-item">
-                    <i class="fas fa-calendar-alt"></i>
-                    <h4>最佳时间</h4>
-                    <p>春季(4-5月)和秋季(9-10月)气候宜人，最适合旅行</p>
-                </div>
-                <div class="tip-item">
-                    <i class="fas fa-subway"></i>
-                    <h4>交通出行</h4>
-                    <p>地铁线路覆盖主要景点，建议购买"长安通"交通卡</p>
-                </div>
-                <div class="tip-item">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <h4>行程规划</h4>
-                    <p>建议安排：东线(兵马俑、华清池)、城内(城墙、碑林、回民街)</p>
-                </div>
-                <div class="tip-item">
-                    <i class="fas fa-shopping-bag"></i>
-                    <h4>购物推荐</h4>
-                    <p>回民街、书院门、大雁塔周边、钟楼商圈</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 返回按钮 -->
-        <div style="text-align: center; margin-top: 3rem;">
-            <a href="index.html" class="back-button">
-                <i class="fas fa-arrow-left"></i>
-                返回首页
-            </a>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- 底部 -->
     <footer>
-        <div class="footer-content">
-            <div style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">
-                <i class="fas fa-compass"></i>
-                三城漫游
+        <div class="footer-container">
+            <div class="footer-logo">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>三城漫游</span>
             </div>
-            <p style="margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                探索中国最具魅力的三座城市：上海、南京、西安
-            </p>
-            <div style="color: #aaa; font-size: 0.9rem;">
-                © 2023 三城漫游旅行博客. 保留所有权利.
-            </div>
+            <p class="footer-desc">专注于上海、南京、西安三地旅行攻略，为你提供最实用的旅行信息和最独特的旅行体验</p>
+            <ul class="footer-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="shanghai.html">上海</a></li>
+                <li><a href="nanjing.html">南京</a></li>
+                <li><a href="xian.html">西安</a></li>
+                <li><a href="tips.html">旅行贴士</a></li>
+            </ul>
+            <p class="copyright">© 2026 三城漫游 版权所有</p>
         </div>
     </footer>
-
-    <script>
-        // 移动端菜单切换
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-        });
-
-        // 响应式导航栏
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                navLinks.style.display = 'flex';
-            } else {
-                navLinks.style.display = 'none';
-            }
-        });
-
-        // 初始化
-        if (window.innerWidth <= 768) {
-            navLinks.style.display = 'none';
-        }
-
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // 关闭移动端菜单
-                    if (window.innerWidth <= 768) {
-                        navLinks.style.display = 'none';
-                    }
-                }
-            });
-        });
-    </script>
 </body>
 </html>
