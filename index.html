@@ -90,7 +90,7 @@
             color: var(--accent-color);
         }
 
-        /* 英雄区域 */
+        /* 英雄区域 - 背景图保持不变 */
         .hero {
             height: 90vh;
             position: relative;
@@ -109,7 +109,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
-                        url('https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/f808d888777bc76897696480cded9e74.jpg_r_1360x1360x95_0d9e5cd7.jpg');
+                        url('https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             filter: brightness(0.9);
@@ -312,25 +312,25 @@
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <<i class="fas fa-compass"></</i>
+                <i class="fas fa-compass"></i>
                 <span>三城漫游</span>
             </a>
 
             <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <<i class="fas fa-bars"></</i>
+                <i class="fas fa-bars"></i>
             </button>
 
-          <ul class="nav-links" id="navLinks">
-    <li><a href="index.html" class="active"><<i class="fas fa-home"></</i> 首页</a></li>
-    <li><a href="shanghai.html"><<i class="fas fa-city"></</i> 上海</a></li>
-    <li><a href="nanjing.html"><<i class="fas fa-landmark"></</i> 南京</a></li>
-    <li><a href="xian.html"><<i class="fas fa-history"></</i> 西安</a></li>
-    <li><a href="tips.html"><<i class="fas fa-lightbulb"></</i> 旅行贴士</a></li>
-</ul>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> 首页</a></li>
+                <li><a href="shanghai.html"><i class="fas fa-city"></i> 上海</a></li>
+                <li><a href="nanjing.html"><i class="fas fa-landmark"></i> 南京</a></li>
+                <li><a href="xian.html"><i class="fas fa-history"></i> 西安</a></li>
+                <li><a href="tips.html"><i class="fas fa-lightbulb"></i> 旅行贴士</a></li>
+            </ul>
         </div>
     </header>
 
-    <!-- 清爽首页 -->
+    <!-- 清爽首页 - 英雄背景图保持不变 -->
     <section class="hero">
         <div class="hero-background"></div>
         <div class="hero-content">
@@ -342,26 +342,26 @@
                 从上海的现代繁华到南京的历史厚重，再到西安的千年古韵，一次旅程，三种截然不同的文化体验。
             </p>
             <a href="#cities" class="btn btn-primary">
-                <<i class="fas fa-map-marked-alt"></</i>
+                <i class="fas fa-map-marked-alt"></i>
                 开始探索
             </a>
         </div>
     </section>
 
-    <!-- 城市导航卡片（已调整南京图片到第二张卡片） -->
+    <!-- 城市导航卡片 - 三个城市大图分别对应各自城市 -->
     <section class="city-navigation" id="cities">
         <h2 class="section-title">探索三座魅力城市</h2>
         <p class="section-subtitle">每座城市都有其独特的性格与故事，点击卡片查看更多详情</p>
         
         <div class="city-cards">
-            <!-- 1. 上海卡片（东方明珠图） -->
+            <!-- 1. 上海卡片 - 对应上海专属大图 -->
             <a href="shanghai.html" class="city-card">
                 <div class="city-image">
                     <img src="https://ts1.tc.mm.bing.net/th/id/R-C.7a451ac26f56eb5c0c1975e74bd3fc9f?rik=tdxHaLpxNTvWFQ&riu=http%3a%2f%2fpic5.40017.cn%2fi%2fori%2fOIiLQBqe8o.jpg&ehk=sDC5XzmWaeKlKidyRvx9YrXrHr3USDI63NHRR4grxEM%3d&risl=&pid=ImgRaw&r=0" alt="上海">
                 </div>
                 <div class="city-content">
                     <h3 class="city-name">
-                        <<i class="fas fa-building" style="color: #e74c3c;"></</i>
+                        <i class="fas fa-building" style="color: #e74c3c;"></i>
                         上海
                     </h3>
                     <p class="city-description">
@@ -375,19 +375,19 @@
                     </div>
                     <div style="color: var(--accent-color); font-weight: 500; display: flex; align-items: center; gap: 5px;">
                         查看详情
-                        <<i class="fas fa-arrow-right"></</i>
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
             </a>
 
-            <!-- 2. 南京卡片（已替换为南京专属图） -->
+            <!-- 2. 南京卡片 - 对应南京专属大图 -->
             <a href="nanjing.html" class="city-card">
                 <div class="city-image">
                     <img src="https://ts1.tc.mm.bing.net/th/id/R-C.32b1c9d86d75f7d9d1c3d2f8d4d9e5b6?rik=zQ9X0MoqgYzpwA&riu=http%3a%2f%2fimg.pconline.com.cn%2fimages%2fupload%2fupc%2ftx%2fphotoblog%2f1905%2f20%2fc11%2f14586299_1558325353317.jpg&ehk=5aKISkcAuZUN92FkjrUP0zlC6vyG6hT%2f9YOc4VUU2uU%3d&risl=&pid=ImgRaw&r=0" alt="南京">
                 </div>
                 <div class="city-content">
                     <h3 class="city-name">
-                        <<i class="fas fa-monument" style="color: #27ae60;"></</i>
+                        <i class="fas fa-monument" style="color: #27ae60;"></i>
                         南京
                     </h3>
                     <p class="city-description">
@@ -401,19 +401,19 @@
                     </div>
                     <div style="color: var(--accent-color); font-weight: 500; display: flex; align-items: center; gap: 5px;">
                         查看详情
-                        <<i class="fas fa-arrow-right"></</i>
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
             </a>
 
-            <!-- 3. 西安卡片（兵马俑图） -->
+            <!-- 3. 西安卡片 - 对应西安专属大图 -->
             <a href="xian.html" class="city-card">
                 <div class="city-image">
                     <img src="https://img95.699pic.com/photo/50119/6510.jpg_wh860.jpg" alt="西安">
                 </div>
                 <div class="city-content">
                     <h3 class="city-name">
-                        <<i class="fas fa-archway" style="color: #8e44ad;"></</i>
+                        <i class="fas fa-archway" style="color: #8e44ad;"></i>
                         西安
                     </h3>
                     <p class="city-description">
@@ -427,7 +427,7 @@
                     </div>
                     <div style="color: var(--accent-color); font-weight: 500; display: flex; align-items: center; gap: 5px;">
                         查看详情
-                        <<i class="fas fa-arrow-right"></</i>
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
             </a>
@@ -438,7 +438,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-logo" style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">
-                <<i class="fas fa-compass"></</i>
+                <i class="fas fa-compass"></i>
                 三城漫游
             </div>
             <p style="margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
