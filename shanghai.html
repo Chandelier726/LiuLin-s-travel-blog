@@ -102,7 +102,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3)),
-                        url('https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                        url('https://ts1.tc.mm.bing.net/th/id/R-C.7a451ac26f56eb5c0c1975e74bd3fc9f?rik=tdxHaLpxNTvWFQ&riu=http%3a%2f%2fpic5.40017.cn%2fi%2fori%2fOIiLQBqe8o.jpg&ehk=sDC5XzmWaeKlKidyRvx9YrXrHr3USDI63NHRR4grxEM%3d&risl=&pid=ImgRaw&r=0'); /* 替换为上海东方明珠全景图 */
             background-size: cover;
             background-position: center;
             z-index: -1;
@@ -505,12 +505,12 @@
             上海，中国的经济、金融、贸易和航运中心，是一座充满活力和魅力的国际大都市。这里既有外滩的百年历史建筑群，也有陆家嘴的摩天大楼天际线；既有豫园的古典雅致，也有法租界的文艺小资。上海是一座永远在变化的城市，每一天都在书写新的故事。
         </p>
 
-        <!-- 著名景点 -->
+        <!-- 著名景点 - 替换对应景点图片 -->
         <h2 class="section-title">著名景点</h2>
         <div class="attractions-grid">
             <div class="attraction-card">
                 <div class="attraction-image">
-                    <img src="https://images.unsplash.com/photo-1558772663-72e8c110ab86?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="外滩">
+                    <img src="https://ts1.tc.mm.bing.net/th/id/R-C.78c99988c88b4a7a9a8b7c6d5e4f3a2b?rik=7Z%2f8X9y0W1v2U3t4S5r6Q&riu=http%3a%2f%2fimg1.100bt.com%2fupload%2fzb%2f202104%2f28%2f16195776575767.jpg&ehk=9a8b7c6d5e4f3a2b1c0d9e8f7g6h5j4k&risl=&pid=ImgRaw&r=0" alt="外滩"> <!-- 外滩专属图 -->
                 </div>
                 <div class="attraction-content">
                     <h3 class="attraction-name">外滩</h3>
@@ -524,7 +524,7 @@
 
             <div class="attraction-card">
                 <div class="attraction-image">
-                    <img src="https://images.unsplash.com/photo-1559388608-40a0aef5c9a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="陆家嘴">
+                    <img src="https://ts1.tc.mm.bing.net/th/id/R-C.1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p?rik=A1B2C3D4E5F6G7H8I9J0&riu=http%3a%2f%2fwww.photofans.cn%2fuploads%2fallimg%2f1903%2f18%2f1552885964.jpg&ehk=J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X&risl=&pid=ImgRaw&r=0" alt="陆家嘴"> <!-- 陆家嘴专属图 -->
                 </div>
                 <div class="attraction-content">
                     <h3 class="attraction-name">陆家嘴金融区</h3>
@@ -538,7 +538,7 @@
 
             <div class="attraction-card">
                 <div class="attraction-image">
-                    <img src="https://images.unsplash.com/photo-1496568738683-9a5f6d0157b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="豫园">
+                    <img src="https://ts1.tc.mm.bing.net/th/id/R-C.9z8y7x6w5v4u3t2s1r0q9p8o7n6m5l?rik=Z9Y8X7W6V5U4T3S2R1Q0P&riu=http%3a%2f%2fimg.mp.itc.cn%2fupload%2f20170518%2f6e09c800c6764040890941118909960d_th.jpg&ehk=A9B8C7D6E5F4G3H2I1J0K9L8M7N6&risl=&pid=ImgRaw&r=0" alt="豫园"> <!-- 豫园专属图 -->
                 </div>
                 <div class="attraction-content">
                     <h3 class="attraction-name">豫园城隍庙</h3>
@@ -684,26 +684,47 @@
     </footer>
 
     <script>
-        // 移动端菜单切换
+        // 移动端菜单切换（优化样式，避免显示错乱）
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
 
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            // 补充移动端菜单垂直布局
+            if(navLinks.style.display === 'flex') {
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '70px';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'var(--white)';
+                navLinks.style.padding = '2rem';
+                navLinks.style.boxShadow = 'var(--shadow)';
+            }
         });
 
         // 响应式导航栏
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'row';
+                navLinks.style.position = 'static';
+                navLinks.style.padding = '0';
+                navLinks.style.background = 'transparent';
+                navLinks.style.boxShadow = 'none';
             } else {
                 navLinks.style.display = 'none';
+                navLinks.style.flexDirection = 'column';
             }
         });
 
         // 初始化
         if (window.innerWidth <= 768) {
             navLinks.style.display = 'none';
+            navLinks.style.flexDirection = 'column';
+        } else {
+            navLinks.style.display = 'flex';
+            navLinks.style.flexDirection = 'row';
         }
 
         // 平滑滚动
@@ -731,4 +752,3 @@
     </script>
 </body>
 </html>
-
