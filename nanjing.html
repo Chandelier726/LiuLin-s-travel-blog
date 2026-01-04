@@ -188,6 +188,54 @@
             max-width: 800px;
         }
 
+        /* 南京图片横幅 */
+        .nanjing-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .highlight-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .highlight-image {
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .highlight-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .highlight-card:hover .highlight-image img {
+            transform: scale(1.05);
+        }
+
+        .highlight-content {
+            padding: 1.5rem;
+            background: white;
+        }
+
+        .highlight-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
         /* 景点网格 */
         .attractions-grid {
             display: grid;
@@ -279,16 +327,18 @@
             transform: translateX(5px);
         }
 
-        .food-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--accent-color);
+        .food-image {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .food-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .food-info h4 {
@@ -299,6 +349,43 @@
         .food-info p {
             color: #666;
             font-size: 0.9rem;
+        }
+
+        /* 美食画廊 */
+        .food-gallery {
+            margin: 2rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .gallery-caption {
+            padding: 0.5rem;
+            text-align: center;
+            background: white;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
 
         /* 文化部分 */
@@ -341,6 +428,33 @@
         .timeline-content h4 {
             margin-bottom: 0.5rem;
             color: var(--primary-color);
+        }
+
+        /* 文化图片展示 */
+        .culture-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .culture-image-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .culture-image-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .culture-image-caption {
+            padding: 0.8rem;
+            background: white;
+            text-align: center;
+            font-size: 0.9rem;
         }
 
         /* 旅行建议 */
@@ -400,11 +514,29 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .experience-icon {
-            background: var(--accent-color);
+        .experience-image {
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .experience-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(39, 174, 96, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            padding: 1.5rem;
-            text-align: center;
             font-size: 2rem;
         }
 
@@ -436,6 +568,10 @@
                 gap: 1rem;
             }
 
+            .nanjing-highlights {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .attractions-grid {
                 grid-template-columns: 1fr;
             }
@@ -450,6 +586,19 @@
             }
 
             .experience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .culture-images,
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nanjing-highlights,
+            .culture-images,
+            .gallery-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -515,7 +664,7 @@
                 <li><a href="shanghai.html"><i class="fas fa-city"></i> 上海</a></li>
                 <li><a href="nanjing.html" class="active"><i class="fas fa-landmark"></i> 南京</a></li>
                 <li><a href="xian.html"><i class="fas fa-history"></i> 西安</a></li>
-              <li><a href="tips.html"><i class="fas fa-lightbulb"></i> 旅行贴士</a></li>
+                <li><a href="tips.html"><i class="fas fa-lightbulb"></i> 旅行贴士</a></li>
             </ul>
         </div>
     </header>
@@ -554,6 +703,46 @@
             南京，中国四大古都之一，有"六朝古都"、"十朝都会"之称。这里既有中山陵的庄严宏伟，也有秦淮河的婉约风情；既有明城墙的厚重历史，也有夫子庙的市井繁华。南京是一座将历史与现代完美融合的城市，每一处都散发着独特的文化魅力。
         </p>
 
+        <!-- 南京特色图片横幅 -->
+        <div class="nanjing-highlights">
+            <div class="highlight-card">
+                <div class="highlight-image">
+                    <img src="https://images.unsplash.com/photo-1551328687-6e9d6d8227e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="中山陵">
+                </div>
+                <div class="highlight-content">
+                    <h3>中山陵</h3>
+                    <p>中国近代伟大的民主革命先行者孙中山先生的陵寝</p>
+                </div>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-image">
+                    <img src="https://images.unsplash.com/photo-1551739440-5dd94d21a912?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="秦淮河">
+                </div>
+                <div class="highlight-content">
+                    <h3>秦淮河风光</h3>
+                    <p>南京的历史文化名片，夜景尤为迷人</p>
+                </div>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-image">
+                    <img src="https://images.unsplash.com/photo-1587332066582-21dd50b75c1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="明孝陵">
+                </div>
+                <div class="highlight-content">
+                    <h3>明孝陵</h3>
+                    <p>明朝开国皇帝朱元璋的陵墓，世界文化遗产</p>
+                </div>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-image">
+                    <img src="https://images.unsplash.com/photo-1550576383-6c59e8e5e7f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="南京博物院">
+                </div>
+                <div class="highlight-content">
+                    <h3>南京博物院</h3>
+                    <p>中国三大博物馆之一，馆藏丰富</p>
+                </div>
+            </div>
+        </div>
+
         <!-- 著名景点 -->
         <h2 class="section-title">著名景点</h2>
         <div class="attractions-grid">
@@ -563,7 +752,7 @@
                 </div>
                 <div class="attraction-content">
                     <h3 class="attraction-name">中山陵</h3>
-                    <p class="attraction-description">中国近代伟大的民主革命先行者孙中山先生的陵寝，建筑气势宏伟，庄严肃穆。</p>
+                    <p class="attraction-description">中国近代伟大的民主革命先行者孙中山先生的陵寝，建筑气势宏伟，庄严肃穆。陵墓依山而筑，由南往北沿中轴线逐渐升高，主要建筑有博爱坊、墓道、陵门、石阶、碑亭、祭堂和墓室等。</p>
                     <div class="attraction-meta">
                         <span>建议时长: 2-3小时</span>
                         <span>免费</span>
@@ -577,7 +766,7 @@
                 </div>
                 <div class="attraction-content">
                     <h3 class="attraction-name">夫子庙秦淮河</h3>
-                    <p class="attraction-description">南京的历史文化名片，集古迹、园林、画舫、市街和民俗于一体。</p>
+                    <p class="attraction-description">南京的历史文化名片，集古迹、园林、画舫、市街和民俗于一体。夫子庙是中国四大文庙之一，秦淮河被誉为"中国第一历史文化名河"，夜晚乘船游览尤为浪漫。</p>
                     <div class="attraction-meta">
                         <span>建议时长: 3-4小时</span>
                         <span>部分景点收费</span>
@@ -591,7 +780,7 @@
                 </div>
                 <div class="attraction-content">
                     <h3 class="attraction-name">明孝陵</h3>
-                    <p class="attraction-description">明朝开国皇帝朱元璋和马皇后的合葬陵墓，中国规模最大的帝王陵寝之一。</p>
+                    <p class="attraction-description">明朝开国皇帝朱元璋和马皇后的合葬陵墓，中国规模最大的帝王陵寝之一。明孝陵代表了明初建筑和石刻艺术的最高成就，直接影响明清两代五百多年帝王陵寝的形制。</p>
                     <div class="attraction-meta">
                         <span>建议时长: 2-3小时</span>
                         <span>门票: ¥70</span>
@@ -606,8 +795,8 @@
             <p class="section-intro">南京菜属于金陵菜系，又称"京苏大菜"，以选料严谨、制作精细、口味醇和著称。</p>
             <div class="food-grid">
                 <div class="food-item">
-                    <div class="food-icon">
-                        <i class="fas fa-drumstick-bite"></i>
+                    <div class="food-image">
+                        <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="盐水鸭">
                     </div>
                     <div class="food-info">
                         <h4>盐水鸭</h4>
@@ -615,8 +804,8 @@
                     </div>
                 </div>
                 <div class="food-item">
-                    <div class="food-icon">
-                        <i class="fas fa-utensil-spoon"></i>
+                    <div class="food-image">
+                        <img src="https://images.unsplash.com/photo-1584782930691-9d5624c4f7c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="鸭血粉丝汤">
                     </div>
                     <div class="food-info">
                         <h4>鸭血粉丝汤</h4>
@@ -624,8 +813,8 @@
                     </div>
                 </div>
                 <div class="food-item">
-                    <div class="food-icon">
-                        <i class="fas fa-bread-slice"></i>
+                    <div class="food-image">
+                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="牛肉锅贴">
                     </div>
                     <div class="food-info">
                         <h4>牛肉锅贴</h4>
@@ -633,12 +822,35 @@
                     </div>
                 </div>
                 <div class="food-item">
-                    <div class="food-icon">
-                        <i class="fas fa-cookie-bite"></i>
+                    <div class="food-image">
+                        <img src="https://images.unsplash.com/photo-1586788680434-30d324b2d46f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="梅花糕">
                     </div>
                     <div class="food-info">
                         <h4>梅花糕</h4>
                         <p>南京传统甜点，形如梅花，软糯香甜</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 美食画廊 -->
+            <div class="food-gallery">
+                <h3 style="margin-bottom: 1rem; color: var(--primary-color);">南京美食图鉴</h3>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="盐水鸭">
+                        <div class="gallery-caption">盐水鸭</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1584782930691-9d5624c4f7c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="鸭血粉丝汤">
+                        <div class="gallery-caption">鸭血粉丝汤</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="牛肉锅贴">
+                        <div class="gallery-caption">牛肉锅贴</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1586788680434-30d324b2d46f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="梅花糕">
+                        <div class="gallery-caption">梅花糕</div>
                     </div>
                 </div>
             </div>
@@ -678,6 +890,26 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 文化图片展示 -->
+            <div class="culture-images">
+                <div class="culture-image-item">
+                    <img src="https://images.unsplash.com/photo-1551328687-6e9d6d8227e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="中山陵建筑">
+                    <div class="culture-image-caption">中山陵建筑群</div>
+                </div>
+                <div class="culture-image-item">
+                    <img src="https://images.unsplash.com/photo-1551739440-5dd94d21a912?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="秦淮河夜景">
+                    <div class="culture-image-caption">秦淮河夜景</div>
+                </div>
+                <div class="culture-image-item">
+                    <img src="https://images.unsplash.com/photo-1587332066582-21dd50b75c1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="明孝陵石像">
+                    <div class="culture-image-caption">明孝陵石像生</div>
+                </div>
+                <div class="culture-image-item">
+                    <img src="https://images.unsplash.com/photo-1550576383-6c59e8e5e7f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="南京博物院">
+                    <div class="culture-image-caption">南京博物院</div>
+                </div>
+            </div>
         </div>
 
         <!-- 特色体验 -->
@@ -686,35 +918,50 @@
             <p class="section-intro">在南京，除了参观名胜古迹，还可以体验这些独特的文化活动。</p>
             <div class="experience-grid">
                 <div class="experience-card">
-                    <div class="experience-icon">
-                        <i class="fas fa-ship"></i>
+                    <div class="experience-image">
+                        <img src="https://images.unsplash.com/photo-1551739440-5dd94d21a912?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="秦淮河">
+                        <div class="experience-overlay">
+                            <i class="fas fa-ship"></i>
+                        </div>
                     </div>
                     <div class="experience-content">
                         <h4>夜游秦淮河</h4>
                         <p>乘坐画舫，欣赏两岸灯火，感受"十里秦淮"的千年风情。</p>
                     </div>
                 </div>
+
                 <div class="experience-card">
-                    <div class="experience-icon">
-                        <i class="fas fa-tree"></i>
+                    <div class="experience-image">
+                        <img src="https://images.unsplash.com/photo-1551328687-6e9d6d8227e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="紫金山">
+                        <div class="experience-overlay">
+                            <i class="fas fa-tree"></i>
+                        </div>
                     </div>
                     <div class="experience-content">
                         <h4>紫金山徒步</h4>
                         <p>登上紫金山，俯瞰南京城全景，感受"钟山龙蟠"的气势。</p>
                     </div>
                 </div>
+
                 <div class="experience-card">
-                    <div class="experience-icon">
-                        <i class="fas fa-book"></i>
+                    <div class="experience-image">
+                        <img src="https://images.unsplash.com/photo-1550576383-6c59e8e5e7f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="南京博物院">
+                        <div class="experience-overlay">
+                            <i class="fas fa-book"></i>
+                        </div>
                     </div>
                     <div class="experience-content">
                         <h4>参观南京博物院</h4>
                         <p>中国三大博物馆之一，馆藏丰富，展现南京千年历史文化。</p>
                     </div>
                 </div>
+
                 <div class="experience-card">
-                    <div class="experience-icon">
-                        <i class="fas fa-archway"></i>
+                    <div class="experience-image">
+                        <img src="https://images.unsplash.com/photo-1587332066582-21dd50b75c1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="明城墙">
+                        <div class="experience-overlay">
+                            <i class="fas fa-archway"></i>
+                        </div>
                     </div>
                     <div class="experience-content">
                         <h4>漫步明城墙</h4>
@@ -824,4 +1071,3 @@
     </script>
 </body>
 </html>
-
