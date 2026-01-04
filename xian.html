@@ -343,6 +343,61 @@
             color: var(--primary-color);
         }
 
+        /* 秦始皇陵特别展示 */
+        .qinshihuang-section {
+            background: linear-gradient(135deg, #f9f3ff, #f5e9ff);
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .qinshihuang-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .qinshihuang-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .qinshihuang-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .qinshihuang-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .qinshihuang-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .qinshihuang-details {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .qinshihuang-details li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qinshihuang-details i {
+            color: var(--accent-color);
+        }
+
         /* 旅行建议 */
         .tips-section {
             background: linear-gradient(135deg, #f5e9ff, #f9f3ff);
@@ -452,6 +507,10 @@
             .experience-grid {
                 grid-template-columns: 1fr;
             }
+
+            .qinshihuang-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .mobile-menu-btn {
@@ -554,29 +613,54 @@
             西安，古称长安，是中国历史上建都时间最长、建都朝代最多的城市。这里有世界八大奇迹之一的兵马俑，有保存最完整的古城墙，有见证佛教传播的大雁塔。西安是一座活的历史博物馆，每一砖一瓦都诉说着千年的故事。
         </p>
 
+        <!-- 秦始皇陵特别展示 -->
+        <div class="qinshihuang-section">
+            <h2 class="section-title">秦始皇陵与兵马俑</h2>
+            <p class="section-intro">世界第八大奇迹，中国古代陵墓的巅峰之作，展现秦朝雄浑气势</p>
+            
+            <div class="qinshihuang-grid">
+                <div class="qinshihuang-image">
+                    <img src="https://images.unsplash.com/photo-1528190336458-5e4ed8a4a8c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="秦始皇兵马俑">
+                </div>
+                <div class="qinshihuang-content">
+                    <h3>秦始皇陵的震撼</h3>
+                    <p>秦始皇陵是中国历史上第一位皇帝嬴政的陵寝，始建于公元前246年，历时39年建成。陵园占地面积达56.25平方公里，是中国历史上规模最大、设计最完善的帝王陵寝。</p>
+                    
+                    <ul class="qinshihuang-details">
+                        <li><i class="fas fa-calendar-alt"></i> <strong>建造时间：</strong>公元前246年-公元前208年</li>
+                        <li><i class="fas fa-map-marker-alt"></i> <strong>地理位置：</strong>西安市临潼区</li>
+                        <li><i class="fas fa-expand-arrows-alt"></i> <strong>占地面积：</strong>56.25平方公里</li>
+                        <li><i class="fas fa-history"></i> <strong>发现时间：</strong>1974年</li>
+                        <li><i class="fas fa-users"></i> <strong>建造人数：</strong>约72万劳工</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <!-- 著名景点 -->
         <h2 class="section-title">著名景点</h2>
-<div class="attraction-card">
-    <div class="attraction-image">
-        <img src="https://images.unsplash.com/photo-1528190336458-5e4ed8a4a8c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="兵马俑">
-    </div>
-    <div class="attraction-content">
-        <h3 class="attraction-name">秦始皇兵马俑</h3>
-        <!-- 确保描述正确 -->
-        <p class="attraction-description">世界第八大奇迹，秦始皇陵的陪葬坑，规模宏大，工艺精湛，震撼人心。</p>
-        <div class="attraction-meta">
-            <span>建议时长: 3-4小时</span>
-            <span>门票: ¥120</span>
-        </div>
-    </div>
-</div>
+        <div class="attractions-grid">
+            <div class="attraction-card">
+                <div class="attraction-image">
+                    <img src="https://images.unsplash.com/photo-1528190336458-5e4ed8a4a8c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="兵马俑">
+                </div>
+                <div class="attraction-content">
+                    <h3 class="attraction-name">秦始皇兵马俑博物馆</h3>
+                    <p class="attraction-description">世界第八大奇迹，秦始皇陵的陪葬坑，规模宏大，工艺精湛，震撼人心。已发现三个坑，共有陶俑陶马近8000件。</p>
+                    <div class="attraction-meta">
+                        <span>建议时长: 3-4小时</span>
+                        <span>门票: ¥120</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="attraction-card">
                 <div class="attraction-image">
                     <img src="https://images.unsplash.com/photo-1541427468627-a89a96e5ca1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="古城墙">
                 </div>
                 <div class="attraction-content">
                     <h3 class="attraction-name">西安古城墙</h3>
-                    <p class="attraction-description">中国现存规模最大、保存最完整的古代城垣，可骑行游览，俯瞰古城风貌。</p>
+                    <p class="attraction-description">中国现存规模最大、保存最完整的古代城垣，可骑行游览，俯瞰古城风貌。全长13.74公里，始建于明代。</p>
                     <div class="attraction-meta">
                         <span>建议时长: 2-3小时</span>
                         <span>门票: ¥54</span>
@@ -590,7 +674,7 @@
                 </div>
                 <div class="attraction-content">
                     <h3 class="attraction-name">大雁塔</h3>
-                    <p class="attraction-description">唐代高僧玄奘为保存佛经而建，西安的标志性建筑，见证佛教传播历史。</p>
+                    <p class="attraction-description">唐代高僧玄奘为保存佛经而建，西安的标志性建筑，见证佛教传播历史。塔高64.5米，共七层。</p>
                     <div class="attraction-meta">
                         <span>建议时长: 2-3小时</span>
                         <span>门票: ¥40</span>
@@ -823,5 +907,3 @@
     </script>
 </body>
 </html>
-
-
