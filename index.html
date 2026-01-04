@@ -109,7 +109,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
-                        url('https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                        url('https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/f808d888777bc76897696480cded9e74.jpg_r_1360x1360x95_0d9e5cd7.jpg');
             background-size: cover;
             background-position: center;
             filter: brightness(0.9);
@@ -354,10 +354,10 @@
         <p class="section-subtitle">每座城市都有其独特的性格与故事，点击卡片查看更多详情</p>
         
         <div class="city-cards">
-            <!-- 上海卡片 -->
+            <!-- 上海卡片 - 替换为东方明珠图片 -->
             <a href="shanghai.html" class="city-card">
                 <div class="city-image">
-                    <img src="https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="上海">
+                    <img src="https://ts1.tc.mm.bing.net/th/id/R-C.7a451ac26f56eb5c0c1975e74bd3fc9f?rik=tdxHaLpxNTvWFQ&riu=http%3a%2f%2fpic5.40017.cn%2fi%2fori%2fOIiLQBqe8o.jpg&ehk=sDC5XzmWaeKlKidyRvx9YrXrHr3USDI63NHRR4grxEM%3d&risl=&pid=ImgRaw&r=0" alt="上海">
                 </div>
                 <div class="city-content">
                     <h3 class="city-name">
@@ -380,10 +380,10 @@
                 </div>
             </a>
 
-            <!-- 南京卡片 -->
+            <!-- 南京卡片 - 替换为夫子庙图片 -->
             <a href="nanjing.html" class="city-card">
                 <div class="city-image">
-                    <img src="https://images.unsplash.com/photo-1593693399746-4d92796c1c5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="南京">
+                    <img src="https://ts1.tc.mm.bing.net/th/id/R-C.32b1c9d86d75f7d9d1c3d2f8d4d9e5b6?rik=zQ9X0MoqgYzpwA&riu=http%3a%2f%2fimg.pconline.com.cn%2fimages%2fupload%2fupc%2ftx%2fphotoblog%2f1905%2f20%2fc11%2f14586299_1558325353317.jpg&ehk=5aKISkcAuZUN92FkjrUP0zlC6vyG6hT%2f9YOc4VUU2uU%3d&risl=&pid=ImgRaw&r=0" alt="南京">
                 </div>
                 <div class="city-content">
                     <h3 class="city-name">
@@ -406,10 +406,10 @@
                 </div>
             </a>
 
-            <!-- 西安卡片 -->
+            <!-- 西安卡片 - 替换为兵马俑图片 -->
             <a href="xian.html" class="city-card">
                 <div class="city-image">
-                    <img src="https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="西安">
+                    <img src="https://img95.699pic.com/photo/50119/6510.jpg_wh860.jpg" alt="西安">
                 </div>
                 <div class="city-content">
                     <h3 class="city-name">
@@ -457,20 +457,41 @@
 
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            // 补充：移动端菜单垂直显示
+            if(navLinks.style.display === 'flex') {
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '70px';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'var(--white)';
+                navLinks.style.padding = '2rem';
+                navLinks.style.boxShadow = 'var(--shadow)';
+            }
         });
 
         // 响应式导航栏
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'row';
+                navLinks.style.position = 'static';
+                navLinks.style.padding = '0';
+                navLinks.style.background = 'transparent';
+                navLinks.style.boxShadow = 'none';
             } else {
                 navLinks.style.display = 'none';
+                navLinks.style.flexDirection = 'column';
             }
         });
 
         // 初始化
         if (window.innerWidth <= 768) {
             navLinks.style.display = 'none';
+            navLinks.style.flexDirection = 'column';
+        } else {
+            navLinks.style.display = 'flex';
+            navLinks.style.flexDirection = 'row';
         }
 
         // 平滑滚动到锚点
@@ -493,5 +514,3 @@
     </script>
 </body>
 </html>
-
-
